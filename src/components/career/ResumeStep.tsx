@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { FileUploader } from '@/components/ui/file-uploader';
 import { Upload, FileText, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import { useCareer } from '@/contexts/CareerContext';
@@ -13,6 +14,7 @@ export const ResumeStep = () => {
   const [jobDescription, setJobDescription] = useState('');
   const [parsedData, setParsedData] = useState<ResumeData | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState<{ url: string; path: string; name: string } | null>(null);
 
   // Simulated resume parsing
   const parseResume = () => {
@@ -83,16 +85,23 @@ export const ResumeStep = () => {
             Resume Content
           </Label>
           <div className="space-y-4">
-            <div className="border-2 border-dashed border-border rounded-lg p-8 text-center">
-              <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-              <p className="text-sm text-muted-foreground mb-4">
-                Upload your PDF resume or paste the text content below
-              </p>
-              <Button variant="outline" disabled>
-                <FileText className="w-4 h-4 mr-2" />
-                Upload PDF (Demo)
-              </Button>
-            </div>
+            <FileUploader
+              onFileUploaded={(file) => {
+                setUploadedFile(file);
+                // Auto-trigger parsing when file is uploaded
+                if (!resumeText) {
+                  setResumeText(`[Uploaded file: ${file.name}]`);
+                }
+              }}
+              onFileRemoved={() => {
+                setUploadedFile(null);
+                if (resumeText.startsWith('[Uploaded file:')) {
+                  setResumeText('');
+                }
+              }}
+              maxSize={10}
+              className="mb-4"
+            />
             
             <div className="space-y-2">
               <Label htmlFor="resume-text">Or paste your resume text here:</Label>
@@ -125,7 +134,7 @@ export const ResumeStep = () => {
         </Card>
 
         {/* Parse Button */}
-        {resumeText && !parsedData && (
+        {(resumeText || uploadedFile) && !parsedData && (
           <div className="text-center">
             <Button 
               onClick={parseResume}
