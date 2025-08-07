@@ -14,7 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      user_profiles: {
+        Row: {
+          career_stage: string | null
+          created_at: string
+          email: string | null
+          has_goal: boolean | null
+          id: string
+          interests: string[] | null
+          objectives: string[] | null
+          preferences: string | null
+          resume_file_name: string | null
+          resume_file_path: string | null
+          resume_parsed_data: Json | null
+          target_role: string | null
+          timeframe: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          career_stage?: string | null
+          created_at?: string
+          email?: string | null
+          has_goal?: boolean | null
+          id?: string
+          interests?: string[] | null
+          objectives?: string[] | null
+          preferences?: string | null
+          resume_file_name?: string | null
+          resume_file_path?: string | null
+          resume_parsed_data?: Json | null
+          target_role?: string | null
+          timeframe?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          career_stage?: string | null
+          created_at?: string
+          email?: string | null
+          has_goal?: boolean | null
+          id?: string
+          interests?: string[] | null
+          objectives?: string[] | null
+          preferences?: string | null
+          resume_file_name?: string | null
+          resume_file_path?: string | null
+          resume_parsed_data?: Json | null
+          target_role?: string | null
+          timeframe?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
