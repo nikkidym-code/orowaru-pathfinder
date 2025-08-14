@@ -28,20 +28,20 @@ export const WelcomeStep = () => {
   };
   const features = [{
     icon: BrainCircuit,
-    title: 'Identity-Aware Guidance',
-    description: 'Personalized career paths based on your unique profile and aspirations'
+    title: 'Personalized Guidance',
+    description: 'Personalized career maps based on your unique profile and aspirations'
   }, {
     icon: Target,
-    title: 'Te Orowaru Scoring',
-    description: 'Comprehensive 15-factor assessment system for precise career matching'
+    title: 'YourVue',
+    description: 'Bespoke, comprehensive scoring assessment for precise career mapping'
   }, {
     icon: TrendingUp,
     title: 'Personalized Plans',
-    description: 'SMART action plans with measurable milestones and progress tracking'
+    description: 'Take action with measurable milestones and progress tracking tailored to your own needs'
   }, {
     icon: Users,
-    title: 'Continuous Review',
-    description: 'Regular assessment and plan adjustments based on your growth'
+    title: 'On-Going Support',
+    description: 'Forge a path that develops as you do, with realtime adjustments to meet your needs, no one elses'
   }];
   return <div className="min-h-screen bg-gradient-to-br from-background via-accent/20 to-background">
       {/* Hero Section */}
