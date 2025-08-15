@@ -77,6 +77,82 @@ export interface Task {
   completed: boolean;
 }
 
+export interface JobRole {
+  id: string;
+  title: string;
+  aliases: string[];
+  industry: string;
+  functionalCategory: string;
+  description: string;
+  
+  // Basic Job Information
+  typicalEmployers: string[];
+  salaryRange: {
+    min: number;
+    max: number;
+    currency: string;
+    region: string;
+  };
+  workLocationModel: ('full-time' | 'part-time' | 'remote' | 'hybrid')[];
+  
+  // Job Value & Career Development
+  coreResponsibilities: string[];
+  careerPath: {
+    current: string;
+    next: string[];
+    timeline: string;
+  };
+  industryOutlook: {
+    demandTrend: 'high' | 'medium' | 'low';
+    aiImpact: 'positive' | 'neutral' | 'challenging';
+    futureSkillNeeds: string[];
+  };
+  keyHighlights: string[];
+  
+  // Skills & Competency Requirements
+  requiredSkills: {
+    core: { name: string; description: string }[];
+    bonus: string[];
+    technical: string[];
+    soft: string[];
+    tools: string[];
+  };
+  
+  // Real-World Job Experience
+  dayToDayWork: string[];
+  realStories: string[];
+  prosAndCons: {
+    pros: string[];
+    cons: string[];
+  };
+  relatedDiscussions: {
+    title: string;
+    url: string;
+    platform: string;
+  }[];
+  
+  // Learning & Preparation Path
+  recommendedCourses: {
+    title: string;
+    provider: string;
+    url: string;
+    type: 'course' | 'certification' | 'bootcamp';
+  }[];
+  suggestedExperience: {
+    internships: string[];
+    partTimeJobs: string[];
+    projects: string[];
+  };
+  communityLinks: {
+    name: string;
+    url: string;
+    type: 'association' | 'linkedin' | 'meetup' | 'forum';
+  }[];
+  
+  experienceLevel: 'entry' | 'mid' | 'senior';
+  careerStages: ('starter' | 'shifter' | 'advancer' | 'explorer')[];
+}
+
 export interface CareerRecommendation {
   roleTitle: string;
   industry: string;
