@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { BrainCircuit, Target, TrendingUp, Users } from 'lucide-react';
+import { BrainCircuit, Target, TrendingUp, Users, Users2 } from 'lucide-react';
 import { useState } from 'react';
 import { useCareer } from '@/contexts/CareerContext';
 import heroImage from '@/assets/hero-image.jpg';
@@ -42,6 +42,10 @@ export const WelcomeStep = () => {
     icon: Users,
     title: 'On-Going Support',
     description: 'Forge a path that develops as you do, with realtime adjustments to meet your needs, no one elses'
+  }, {
+    icon: Users2,
+    title: 'Community',
+    description: 'Connect with like-minded professionals and grow together, sharing experiences, advice, and opportunities along the way'
   }];
   return <div className="min-h-screen bg-gradient-to-br from-background via-accent/20 to-background">
       {/* Hero Section */}
