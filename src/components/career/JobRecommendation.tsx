@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { JobRecommendationCard } from './JobRecommendationCard';
+import { SimilarJobs } from './SimilarJobs';
 import { JobRole, ResumeData, CareerStage } from '@/types/career';
+import { useCareer } from '@/contexts/CareerContext';
 
 interface JobRecommendationProps {
   job: JobRole;
@@ -9,14 +12,21 @@ interface JobRecommendationProps {
 }
 
 export const JobRecommendation = ({ job, resumeData, careerStage, isExpanded = false }: JobRecommendationProps) => {
+  const { addToCompare, addToGoals } = useCareer();
+  const [showSimilar, setShowSimilar] = useState(false);
+
+  if (showSimilar) {
+    return <SimilarJobs baseJob={job} onClose={() => setShowSimilar(false)} />;
+  }
+
   return (
     <JobRecommendationCard
       job={job}
       resumeData={resumeData}
       careerStage={careerStage}
-      onAddToCompare={(job) => console.log('Add to compare:', job.title)}
-      onAddToGoals={(job) => console.log('Add to goals:', job.title)}
-      onViewSimilar={(job) => console.log('View similar:', job.title)}
+      onAddToCompare={addToCompare}
+      onAddToGoals={addToGoals}
+      onViewSimilar={() => setShowSimilar(true)}
     />
   );
 };

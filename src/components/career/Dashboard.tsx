@@ -7,6 +7,8 @@ import { useCareer } from '@/contexts/CareerContext';
 import { CoverLetterGenerator } from '@/components/tools/CoverLetterGenerator';
 import { CVOptimizer } from '@/components/tools/CVOptimizer';
 import { CommunityHub } from '@/components/tools/CommunityHub';
+import { CareerGoals as JobGoals } from './CareerGoals';
+import { JobComparison } from './JobComparison';
 import { 
   User, 
   Target, 
@@ -119,10 +121,18 @@ export const Dashboard = () => {
       </div>
 
       <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="overview" className="flex items-center gap-2">
             <BarChart3 className="h-4 w-4" />
             Overview
+          </TabsTrigger>
+          <TabsTrigger value="goals" className="flex items-center gap-2">
+            <Target className="h-4 w-4" />
+            Goals
+          </TabsTrigger>
+          <TabsTrigger value="compare" className="flex items-center gap-2">
+            <BarChart3 className="h-4 w-4" />
+            Compare
           </TabsTrigger>
           <TabsTrigger value="tools" className="flex items-center gap-2">
             <Wrench className="h-4 w-4" />
@@ -137,6 +147,14 @@ export const Dashboard = () => {
             Community
           </TabsTrigger>
         </TabsList>
+
+        <TabsContent value="goals">
+          <JobGoals />
+        </TabsContent>
+
+        <TabsContent value="compare">
+          <JobComparison />
+        </TabsContent>
 
         <TabsContent value="overview">
           <div className="grid lg:grid-cols-3 gap-6">

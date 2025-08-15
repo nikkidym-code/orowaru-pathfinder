@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { UserProfile, TeOrowaruProfile, ActionPlan } from '@/types/career';
+import { UserProfile, TeOrowaruProfile, ActionPlan, JobRole } from '@/types/career';
 
 interface CareerContextType {
   userProfile: UserProfile | null;
@@ -10,6 +10,14 @@ interface CareerContextType {
   setTeOrowaruProfile: (profile: TeOrowaruProfile | null) => void;
   actionPlan: ActionPlan | null;
   setActionPlan: (plan: ActionPlan | null) => void;
+  compareList: JobRole[];
+  setCompareList: (jobs: JobRole[]) => void;
+  goalsList: JobRole[];
+  setGoalsList: (jobs: JobRole[]) => void;
+  addToCompare: (job: JobRole) => void;
+  removeFromCompare: (jobId: string) => void;
+  addToGoals: (job: JobRole) => void;
+  removeFromGoals: (jobId: string) => void;
   resetJourney: () => void;
 }
 
@@ -32,12 +40,38 @@ export const CareerProvider = ({ children }: CareerProviderProps) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [teOrowaruProfile, setTeOrowaruProfile] = useState<TeOrowaruProfile | null>(null);
   const [actionPlan, setActionPlan] = useState<ActionPlan | null>(null);
+  const [compareList, setCompareList] = useState<JobRole[]>([]);
+  const [goalsList, setGoalsList] = useState<JobRole[]>([]);
+
+  const addToCompare = (job: JobRole) => {
+    setCompareList(prev => {
+      if (prev.find(j => j.id === job.id)) return prev;
+      return [...prev, job];
+    });
+  };
+
+  const removeFromCompare = (jobId: string) => {
+    setCompareList(prev => prev.filter(j => j.id !== jobId));
+  };
+
+  const addToGoals = (job: JobRole) => {
+    setGoalsList(prev => {
+      if (prev.find(j => j.id === job.id)) return prev;
+      return [...prev, job];
+    });
+  };
+
+  const removeFromGoals = (jobId: string) => {
+    setGoalsList(prev => prev.filter(j => j.id !== jobId));
+  };
 
   const resetJourney = () => {
     setUserProfile(null);
     setCurrentStep(0);
     setTeOrowaruProfile(null);
     setActionPlan(null);
+    setCompareList([]);
+    setGoalsList([]);
   };
 
   return (
@@ -51,6 +85,14 @@ export const CareerProvider = ({ children }: CareerProviderProps) => {
         setTeOrowaruProfile,
         actionPlan,
         setActionPlan,
+        compareList,
+        setCompareList,
+        goalsList,
+        setGoalsList,
+        addToCompare,
+        removeFromCompare,
+        addToGoals,
+        removeFromGoals,
         resetJourney,
       }}
     >
