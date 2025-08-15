@@ -33,6 +33,8 @@ interface JobRecommendationCardProps {
   careerStage: CareerStage;
   onAddToCompare?: (job: JobRole) => void;
   onAddToGoals?: (job: JobRole) => void;
+  onRemoveFromCompare?: (jobId: string) => void;
+  onRemoveFromGoals?: (jobId: string) => void;
   onViewSimilar?: (job: JobRole) => void;
   isInCompareList?: boolean;
   isInGoalsList?: boolean;
@@ -44,6 +46,8 @@ export const JobRecommendationCard = ({
   careerStage,
   onAddToCompare,
   onAddToGoals,
+  onRemoveFromCompare,
+  onRemoveFromGoals,
   onViewSimilar,
   isInCompareList = false,
   isInGoalsList = false
@@ -490,26 +494,26 @@ export const JobRecommendationCard = ({
           <Button
             variant={isInCompareList ? "default" : "outline"}
             size="sm"
-            onClick={() => onAddToCompare?.(job)}
+            onClick={() => isInCompareList ? onRemoveFromCompare?.(job.id) : onAddToCompare?.(job)}
             className={cn(
               "flex items-center gap-2 transition-all duration-200",
               isInCompareList && "bg-primary text-primary-foreground hover:bg-primary/90"
             )}
           >
             <GitCompare className="w-4 h-4" />
-            {isInCompareList ? "Added to Compare" : "Add to Compare"}
+            {isInCompareList ? "Remove from Compare" : "Add to Compare"}
           </Button>
           <Button
             variant={isInGoalsList ? "default" : "outline"}
             size="sm"
-            onClick={() => onAddToGoals?.(job)}
+            onClick={() => isInGoalsList ? onRemoveFromGoals?.(job.id) : onAddToGoals?.(job)}
             className={cn(
               "flex items-center gap-2 transition-all duration-200",
               isInGoalsList && "bg-primary text-primary-foreground hover:bg-primary/90"
             )}
           >
             <Heart className={cn("w-4 h-4", isInGoalsList && "fill-current")} />
-            {isInGoalsList ? "Added to Goals" : "Add to My Goals"}
+            {isInGoalsList ? "Remove from Goals" : "Add to My Goals"}
           </Button>
           <Button
             variant="outline"
