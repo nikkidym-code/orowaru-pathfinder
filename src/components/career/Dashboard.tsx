@@ -187,7 +187,7 @@ export const Dashboard = () => {
 
               {/* Te Orowaru Categories */}
               <Card className="p-6">
-                <h3 className="text-xl font-bold mb-4">Te Orowaru Category Scores</h3>
+                <h3 className="text-xl font-bold mb-4">WorkVue Category Scores</h3>
                 <div className="space-y-4">
                   {Object.entries(teOrowaruProfile.categoryScores).map(([category, scores]) => (
                     <div key={category}>
