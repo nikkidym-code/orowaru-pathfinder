@@ -42,6 +42,10 @@ export const WelcomeStep = () => {
     icon: Users,
     title: 'On-Going Support',
     description: 'Forge a path that develops as you do, with realtime adjustments to meet your needs, no one elses'
+  }, {
+      icon: useCareer,
+      title:'Community',
+      description: 'Connect with like-minded professionals and grow together, sharing experiences, advice, and opportunities along the way.'
   }];
   return <div className="min-h-screen bg-gradient-to-br from-background via-accent/20 to-background">
       {/* Hero Section */}
