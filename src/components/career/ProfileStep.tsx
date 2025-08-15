@@ -59,9 +59,9 @@ export const ProfileStep = () => {
   ];
 
   const timeframeOptions = [
-    'Short Term(up to 6 months)',
-    'Medium Term(up to 18 months)',
-    'Long Term(over 2 years)',
+    'Short Term (Up to 6 months)',
+    'Medium Term (Up to 18 months)',
+    'Long Term (Over 2 years)',
   ];
 
   const handleObjectiveChange = (objective: string, checked: boolean) => {
