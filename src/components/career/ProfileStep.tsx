@@ -5,6 +5,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
+import { RoleSelector } from '@/components/ui/role-selector';
 import { useState } from 'react';
 import { useCareer } from '@/contexts/CareerContext';
 import { CareerStage } from '@/types/career';
@@ -13,7 +14,7 @@ export const ProfileStep = () => {
   const { userProfile, setUserProfile, setCurrentStep } = useCareer();
   const [careerStage, setCareerStage] = useState<CareerStage>('starter');
   const [hasGoal, setHasGoal] = useState(false);
-  const [targetRole, setTargetRole] = useState('');
+  const [targetRoles, setTargetRoles] = useState<string[]>([]);
   const [objectives, setObjectives] = useState<string[]>([]);
   const [interests, setInterests] = useState('');
   const [timeframe, setTimeframe] = useState('');
@@ -59,7 +60,7 @@ export const ProfileStep = () => {
         ...userProfile,
         careerStage,
         hasGoal,
-        targetRole: hasGoal ? targetRole : undefined,
+        targetRole: hasGoal && targetRoles.length > 0 ? targetRoles[0] : undefined,
         objectives,
         interests: interests.split(',').map(i => i.trim()).filter(i => i),
         timeframe,
@@ -119,16 +120,18 @@ export const ProfileStep = () => {
           
           {hasGoal && (
             <div className="mt-4">
-              <Label htmlFor="target-role" className="text-sm font-medium">
-                What role are you targeting?
+              <Label className="text-sm font-medium mb-2 block">
+                What role(s) are you targeting?
               </Label>
-              <Input
-                id="target-role"
-                placeholder="e.g., Senior Software Engineer, Marketing Manager"
-                value={targetRole}
-                onChange={(e) => setTargetRole(e.target.value)}
-                className="mt-1"
+              <RoleSelector
+                selectedRoles={targetRoles}
+                onRolesChange={setTargetRoles}
+                placeholder="Search for roles or add your own..."
+                maxRoles={3}
               />
+              <p className="text-xs text-muted-foreground mt-1">
+                Start typing to see suggestions or add custom roles. You can select up to 3 roles.
+              </p>
             </div>
           )}
         </Card>
