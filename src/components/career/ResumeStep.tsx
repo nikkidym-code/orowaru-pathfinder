@@ -72,7 +72,7 @@ export const ResumeStep = () => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold mb-2">Upload Your Resume</h2>
+        <h2 className="text-3xl font-bold mb-2">Help us understand your background and experience</h2>
         <p className="text-muted-foreground">
           We'll parse your resume to understand your background and experience
         </p>
