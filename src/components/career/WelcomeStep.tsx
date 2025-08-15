@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { BrainCircuit, Target, TrendingUp, Users, Users2 } from 'lucide-react';
+import { BrainCircuit, Target, TrendingUp, Users, Users2, Wrench } from 'lucide-react';
 import { useState } from 'react';
 import { useCareer } from '@/contexts/CareerContext';
 import heroImage from '@/assets/hero-image.jpg';
@@ -46,6 +46,10 @@ export const WelcomeStep = () => {
     icon: Users2,
     title: 'Community',
     description: 'Connect with like-minded professionals and grow together, sharing experiences, advice, and opportunities along the way'
+  }, {
+    icon: Wrench,
+    title: 'Tools',
+    description: 'Access practical resources and tailored guidance to help you plan, track, and achieve your career goals with confidence'
   }];
   return <div className="min-h-screen bg-gradient-to-br from-background via-accent/20 to-background">
       {/* Hero Section */}
@@ -78,7 +82,7 @@ export const WelcomeStep = () => {
       {/* Features Section */}
       <div className="max-w-6xl mx-auto px-6 py-16">
         <h2 className="text-3xl font-bold text-center mb-12">Why Choose Our Platform</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-3 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => <Card key={index} className="p-6 text-center hover:shadow-lg transition-all duration-300 border-0 bg-card/50">
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <feature.icon className="w-6 h-6 text-primary" />
