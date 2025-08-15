@@ -170,7 +170,8 @@ export const TeOrowaruReport = () => {
       </div>
 
       {/* Te Orowaru Scoring Section (Collapsed by Default) */}
-      <Card className="p-6 mb-6">
+      <div className="max-w-4xl mx-auto mb-6">
+        <Card className="p-6">
         <Collapsible open={isScoringSectionOpen} onOpenChange={setIsScoringSectionOpen}>
           <CollapsibleTrigger asChild>
             <Button variant="ghost" className="w-full justify-between p-0 h-auto">
@@ -283,10 +284,11 @@ export const TeOrowaruReport = () => {
             </div>
           </CollapsibleContent>
         </Collapsible>
-      </Card>
+        </Card>
+      </div>
 
       {/* Main Content: Dynamic Logic Based on Goal Status */}
-      <div className="space-y-6">
+      <div className="max-w-4xl mx-auto space-y-6">
         <div className="text-center">
           <h3 className="text-2xl font-bold mb-2">
             {userProfile.hasGoal ? 'Career Goal Analysis' : 'Recommended Career Paths'}
