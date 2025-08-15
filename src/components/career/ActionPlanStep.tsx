@@ -192,7 +192,7 @@ export const ActionPlanStep = () => {
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <h2 className="text-2xl font-bold mb-2">Creating Your Action Plan</h2>
           <p className="text-muted-foreground">
-            Generating personalized SMART goals based on your Te Orowaru assessment...
+            Generating personalized plan based on your WorkVue assessment...
           </p>
         </div>
       </div>
