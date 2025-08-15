@@ -25,6 +25,7 @@ import {
 import { JobRole } from '@/types/career';
 import { ResumeData, CareerStage } from '@/types/career';
 import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
 interface JobRecommendationCardProps {
   job: JobRole;
@@ -33,6 +34,8 @@ interface JobRecommendationCardProps {
   onAddToCompare?: (job: JobRole) => void;
   onAddToGoals?: (job: JobRole) => void;
   onViewSimilar?: (job: JobRole) => void;
+  isInCompareList?: boolean;
+  isInGoalsList?: boolean;
 }
 
 export const JobRecommendationCard = ({ 
@@ -41,7 +44,9 @@ export const JobRecommendationCard = ({
   careerStage,
   onAddToCompare,
   onAddToGoals,
-  onViewSimilar 
+  onViewSimilar,
+  isInCompareList = false,
+  isInGoalsList = false
 }: JobRecommendationCardProps) => {
   const [activeTab, setActiveTab] = useState('overview');
 
@@ -483,28 +488,34 @@ export const JobRecommendationCard = ({
         {/* Action Buttons */}
         <div className="flex gap-3 mt-6 pt-4 border-t">
           <Button
-            variant="outline"
+            variant={isInCompareList ? "default" : "outline"}
             size="sm"
             onClick={() => onAddToCompare?.(job)}
-            className="flex items-center gap-2"
+            className={cn(
+              "flex items-center gap-2 transition-all duration-200",
+              isInCompareList && "bg-primary text-primary-foreground hover:bg-primary/90"
+            )}
           >
             <GitCompare className="w-4 h-4" />
-            Add to Compare
+            {isInCompareList ? "Added to Compare" : "Add to Compare"}
           </Button>
           <Button
-            variant="outline"
+            variant={isInGoalsList ? "default" : "outline"}
             size="sm"
             onClick={() => onAddToGoals?.(job)}
-            className="flex items-center gap-2"
+            className={cn(
+              "flex items-center gap-2 transition-all duration-200",
+              isInGoalsList && "bg-primary text-primary-foreground hover:bg-primary/90"
+            )}
           >
-            <Heart className="w-4 h-4" />
-            Add to My Goals
+            <Heart className={cn("w-4 h-4", isInGoalsList && "fill-current")} />
+            {isInGoalsList ? "Added to Goals" : "Add to My Goals"}
           </Button>
           <Button
             variant="outline"
             size="sm"
             onClick={() => onViewSimilar?.(job)}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 hover:bg-accent hover:text-accent-foreground transition-colors duration-200"
           >
             <Target className="w-4 h-4" />
             View Similar Roles

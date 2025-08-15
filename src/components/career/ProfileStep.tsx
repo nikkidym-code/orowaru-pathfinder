@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RoleSelector } from '@/components/ui/role-selector';
+import { InterestSelector } from '@/components/ui/interest-selector';
 import { useState } from 'react';
 import { useCareer } from '@/contexts/CareerContext';
 import { CareerStage } from '@/types/career';
@@ -16,8 +17,8 @@ export const ProfileStep = () => {
   const [hasGoal, setHasGoal] = useState(false);
   const [targetRoles, setTargetRoles] = useState<string[]>([]);
   const [objectives, setObjectives] = useState<string[]>([]);
-  const [interests, setInterests] = useState('');
-  const [timeframe, setTimeframe] = useState('');
+  const [interests, setInterests] = useState<string[]>([]);
+  const [timeframe, setTimeframe] = useState('Short Term (Up to 6 months)');
   const [preferences, setPreferences] = useState('');
 
   const careerStages = [
@@ -80,7 +81,7 @@ export const ProfileStep = () => {
         hasGoal,
         targetRole: hasGoal && targetRoles.length > 0 ? targetRoles[0] : undefined,
         objectives,
-        interests: interests.split(',').map(i => i.trim()).filter(i => i),
+        interests,
         timeframe,
         preferences,
       });
@@ -186,17 +187,18 @@ export const ProfileStep = () => {
 
         {/* Interests */}
         <Card className="p-6">
-          <Label htmlFor="interests" className="text-lg font-semibold mb-2 block">
+          <Label className="text-lg font-semibold mb-2 block">
             What are your areas of interest? <span className="text-red-500">*</span>
           </Label>
-          <Textarea
-            id="interests"
-            placeholder="e.g., technology, healthcare, finance, education (separate with commas)"
-            value={interests}
-            onChange={(e) => setInterests(e.target.value)}
-            className="mt-1"
-            rows={3}
+          <InterestSelector
+            selectedInterests={interests}
+            onInterestsChange={setInterests}
+            placeholder="Search for interests or add your own..."
+            maxInterests={8}
           />
+          <p className="text-xs text-muted-foreground mt-1">
+            Start typing to see suggestions or add custom interests. You can select up to 8 interests.
+          </p>
         </Card>
 
         {/* Timeframe */}
@@ -238,7 +240,7 @@ export const ProfileStep = () => {
           </Button>
           <Button 
             onClick={handleNext}
-            disabled={!careerStage || !timeframe || objectives.length === 0 || !interests.trim()}
+            disabled={!careerStage || !timeframe || objectives.length === 0 || interests.length === 0}
           >
             Continue to Resume Upload
           </Button>

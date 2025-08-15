@@ -12,8 +12,11 @@ interface JobRecommendationProps {
 }
 
 export const JobRecommendation = ({ job, resumeData, careerStage, isExpanded = false }: JobRecommendationProps) => {
-  const { addToCompare, addToGoals } = useCareer();
+  const { addToCompare, addToGoals, compareList, goalsList } = useCareer();
   const [showSimilar, setShowSimilar] = useState(false);
+  
+  const isInCompareList = compareList.some(compareJob => compareJob.id === job.id);
+  const isInGoalsList = goalsList.some(goalJob => goalJob.id === job.id);
 
   if (showSimilar) {
     return <SimilarJobs baseJob={job} onClose={() => setShowSimilar(false)} />;
@@ -27,6 +30,8 @@ export const JobRecommendation = ({ job, resumeData, careerStage, isExpanded = f
       onAddToCompare={addToCompare}
       onAddToGoals={addToGoals}
       onViewSimilar={() => setShowSimilar(true)}
+      isInCompareList={isInCompareList}
+      isInGoalsList={isInGoalsList}
     />
   );
 };
