@@ -18,7 +18,7 @@ export const TeOrowaruReport = () => {
   const [isScoringSectionOpen, setIsScoringSectionOpen] = useState(false);
 
   useEffect(() => {
-    // Simulate Te Orowaru evaluation
+    // Simulate WorkVue evaluation
     setTimeout(() => {
       const mockProfile = generateMockProfile();
       setProfile(mockProfile);
@@ -132,7 +132,7 @@ export const TeOrowaruReport = () => {
       <div className="max-w-4xl mx-auto p-6">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <h2 className="text-2xl font-bold mb-2">Analyzing Your Te Orowaru Profile</h2>
+          <h2 className="text-2xl font-bold mb-2">Analyzing Your WorkVue Profile</h2>
           <p className="text-muted-foreground">
             Processing your responses and generating your comprehensive career assessment...
           </p>
@@ -163,7 +163,7 @@ export const TeOrowaruReport = () => {
   return (
     <div className="max-w-6xl mx-auto p-6">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold mb-2">Your Te Orowaru Assessment</h2>
+        <h2 className="text-3xl font-bold mb-2">YourVue</h2>
         <p className="text-muted-foreground">
           Comprehensive analysis of your career readiness and development areas
         </p>
@@ -177,7 +177,7 @@ export const TeOrowaruReport = () => {
               <div className="flex items-center space-x-4">
                 <BarChart3 className="w-6 h-6" />
                 <div className="text-left">
-                  <h3 className="text-xl font-bold">Te Orowaru Model Scoring</h3>
+                  <h3 className="text-xl font-bold">WorkVue Model Scoring</h3>
                   <div className="flex items-center space-x-4 mt-1">
                     <Badge variant="secondary" className="text-sm">
                       {Math.round(profile.matchPercentage)}% Match
