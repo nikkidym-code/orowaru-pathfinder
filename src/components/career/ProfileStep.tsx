@@ -27,15 +27,35 @@ export const ProfileStep = () => {
     { value: 'explorer', label: 'Explorer', description: 'Considering and evaluating multiple career paths' },
   ];
 
-  const objectiveOptions = [
-    'Find a new job',
-    'Change career direction',
-    'Get promoted',
-    'Develop new skills',
-    'Improve work-life balance',
-    'Increase salary',
-    'Leadership development',
-    'Start my own business',
+  const objectiveCategories = [
+    {
+      title: "New Roles / Career Change",
+      options: [
+        'Switch to a new industry or job function',
+        'Start my own business or freelance career',
+      ]
+    },
+    {
+      title: "Improve Current Work & Progression",
+      options: [
+        'Get a promotion in my current role',
+        'Take on more responsibility or leadership',
+      ]
+    },
+    {
+      title: "Community & Peer Group",
+      options: [
+        'Build a stronger professional network',
+        'Find a mentor or join a peer group',
+      ]
+    },
+    {
+      title: "Work Conditions & Rights",
+      options: [
+        'Improve working conditions',
+        'Get better pay and benefits',
+      ]
+    }
   ];
 
   const timeframeOptions = [
@@ -141,17 +161,26 @@ export const ProfileStep = () => {
           <Label className="text-lg font-semibold mb-4 block">
             What do you want to achieve? (Select all that apply)
           </Label>
-          <div className="grid md:grid-cols-2 gap-3">
-            {objectiveOptions.map((objective) => (
-              <div key={objective} className="flex items-center space-x-2">
-                <Checkbox
-                  id={objective}
-                  checked={objectives.includes(objective)}
-                  onCheckedChange={(checked) => handleObjectiveChange(objective, checked as boolean)}
-                />
-                <Label htmlFor={objective} className="text-sm cursor-pointer">
-                  {objective}
-                </Label>
+          <div className="space-y-6">
+            {objectiveCategories.map((category) => (
+              <div key={category.title} className="space-y-3">
+                <h4 className="font-medium text-sm text-muted-foreground uppercase tracking-wide">
+                  {category.title}
+                </h4>
+                <div className="grid md:grid-cols-2 gap-3">
+                  {category.options.map((objective) => (
+                    <div key={objective} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={objective}
+                        checked={objectives.includes(objective)}
+                        onCheckedChange={(checked) => handleObjectiveChange(objective, checked as boolean)}
+                      />
+                      <Label htmlFor={objective} className="text-sm cursor-pointer">
+                        {objective}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
