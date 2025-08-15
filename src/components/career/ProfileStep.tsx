@@ -28,14 +28,26 @@ export const ProfileStep = () => {
   ];
 
   const objectiveOptions = [
+    // New roles & career change
     'Find a new job',
     'Change career direction',
-    'Get promoted',
-    'Develop new skills',
-    'Improve work-life balance',
-    'Increase salary',
-    'Leadership development',
     'Start my own business',
+    'Transition to freelancing',
+    
+    // Career progression & workplace improvements
+    'Get promoted',
+    'Increase salary',
+    'Improve work-life balance',
+    'Better working conditions',
+    'More flexible work arrangements',
+    'Advance workers rights',
+    'Leadership development',
+    
+    // Skills & community
+    'Develop new skills',
+    'Build professional network',
+    'Find mentorship opportunities',
+    'Connect with industry peers',
   ];
 
   const timeframeOptions = [
