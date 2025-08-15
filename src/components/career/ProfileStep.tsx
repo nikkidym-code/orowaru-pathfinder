@@ -125,7 +125,7 @@ export const ProfileStep = () => {
         {/* Goal Clarity */}
         <Card className="p-6">
           <Label className="text-lg font-semibold mb-4 block">
-            Do you have a clear target role in mind?
+             Do you have a role in mind?
           </Label>
           <RadioGroup value={hasGoal.toString()} onValueChange={(value) => setHasGoal(value === 'true')}>
             <div className="flex items-center space-x-2">
