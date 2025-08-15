@@ -21,33 +21,21 @@ export const ProfileStep = () => {
   const [preferences, setPreferences] = useState('');
 
   const careerStages = [
-    { value: 'starter', label: 'Starter', description: 'Beginning my career journey' },
-    { value: 'shifter', label: 'Shifter', description: 'Changing career direction' },
-    { value: 'advancer', label: 'Advancer', description: 'Advancing in current field' },
-    { value: 'explorer', label: 'Explorer', description: 'Exploring multiple options' },
+    { value: 'starter', label: 'Starter', description: 'Launching my first career or entering the workforce' },
+    { value: 'shifter', label: 'Shifter', description: 'Transitioning into a new role or industry' },
+    { value: 'advancer', label: 'Advancer', description: 'Progressing and growing within my current field' },
+    { value: 'explorer', label: 'Explorer', description: 'Considering and evaluating multiple career paths' },
   ];
 
   const objectiveOptions = [
-    // New roles & career change
     'Find a new job',
     'Change career direction',
-    'Start my own business',
-    'Transition to freelancing',
-    
-    // Career progression & workplace improvements
     'Get promoted',
-    'Increase salary',
-    'Improve work-life balance',
-    'Better working conditions',
-    'More flexible work arrangements',
-    'Advance workers rights',
-    'Leadership development',
-    
-    // Skills & community
     'Develop new skills',
-    'Build professional network',
-    'Find mentorship opportunities',
-    'Connect with industry peers',
+    'Improve work-life balance',
+    'Increase salary',
+    'Leadership development',
+    'Start my own business',
   ];
 
   const timeframeOptions = [
