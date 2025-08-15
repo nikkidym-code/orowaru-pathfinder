@@ -202,16 +202,19 @@ export const TeOrowaruReport = () => {
               <div className="relative w-32 h-32 mx-auto mb-4">
                 <div className="w-32 h-32 rounded-full border-8 border-muted flex items-center justify-center relative">
                   <div 
-                    className={`absolute inset-0 rounded-full border-8 border-t-primary border-r-primary`}
+                    className="absolute inset-0 rounded-full border-8 border-transparent"
                     style={{ 
                       transform: `rotate(${(profile.matchPercentage / 100) * 360}deg)`,
-                      borderColor: `hsl(var(--${matchStatus.color}))`
+                      borderTopColor: `hsl(var(--${matchStatus.color}))`,
+                      borderRightColor: `hsl(var(--${matchStatus.color}))`,
+                      borderBottomColor: profile.matchPercentage > 50 ? `hsl(var(--${matchStatus.color}))` : 'transparent',
+                      borderLeftColor: profile.matchPercentage > 75 ? `hsl(var(--${matchStatus.color}))` : 'transparent'
                     }}
                   />
                   <span className="text-2xl font-bold">{Math.round(profile.matchPercentage)}%</span>
                 </div>
               </div>
-              <Badge variant="secondary" className="text-lg px-4 py-2">
+              <Badge variant={matchStatus.color as any} className="text-lg px-4 py-2">
                 {matchStatus.label}
               </Badge>
               <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
