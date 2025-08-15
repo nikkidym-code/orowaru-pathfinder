@@ -101,7 +101,7 @@ export const ProfileStep = () => {
         {/* Career Stage */}
         <Card className="p-6">
           <Label className="text-lg font-semibold mb-4 block">
-            What is your current career stage?
+            What is your current career stage? <span className="text-red-500">*</span>
           </Label>
           <RadioGroup value={careerStage} onValueChange={(value) => setCareerStage(value as CareerStage)}>
             <div className="grid md:grid-cols-2 gap-4">
@@ -123,7 +123,7 @@ export const ProfileStep = () => {
         {/* Goal Clarity */}
         <Card className="p-6">
           <Label className="text-lg font-semibold mb-4 block">
-             Do you have a role in mind?
+             Do you have a role in mind? <span className="text-red-500">*</span>
           </Label>
           <RadioGroup value={hasGoal.toString()} onValueChange={(value) => setHasGoal(value === 'true')}>
             <div className="flex items-center space-x-2">
@@ -157,7 +157,7 @@ export const ProfileStep = () => {
         {/* Objectives */}
         <Card className="p-6">
           <Label className="text-lg font-semibold mb-4 block">
-            What do you want to achieve? (Select all that apply)
+            What do you want to achieve? <span className="text-red-500">*</span> <span className="text-sm text-muted-foreground font-normal">(Select all that apply)</span>
           </Label>
           <div className="space-y-6">
             {objectiveCategories.map((category) => (
@@ -187,7 +187,7 @@ export const ProfileStep = () => {
         {/* Interests */}
         <Card className="p-6">
           <Label htmlFor="interests" className="text-lg font-semibold mb-2 block">
-            What are your areas of interest?
+            What are your areas of interest? <span className="text-red-500">*</span>
           </Label>
           <Textarea
             id="interests"
@@ -202,7 +202,7 @@ export const ProfileStep = () => {
         {/* Timeframe */}
         <Card className="p-6">
           <Label className="text-lg font-semibold mb-4 block">
-            What is your timeframe for achieving your goal?
+            What is your timeframe for achieving your goal? <span className="text-red-500">*</span>
           </Label>
           <RadioGroup value={timeframe} onValueChange={setTimeframe}>
             <div className="grid md:grid-cols-3 gap-3">
@@ -238,7 +238,7 @@ export const ProfileStep = () => {
           </Button>
           <Button 
             onClick={handleNext}
-            disabled={!careerStage || !timeframe || objectives.length === 0}
+            disabled={!careerStage || !timeframe || objectives.length === 0 || !interests.trim()}
           >
             Continue to Resume Upload
           </Button>
