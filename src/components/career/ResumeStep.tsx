@@ -142,7 +142,7 @@ export const ResumeStep = () => {
               size="lg"
               className="px-8"
             >
-              {isProcessing ? 'Processing Resume...' : 'Parse Resume'}
+              {isProcessing ? 'Processing Resume...' : 'Next'}
             </Button>
           </div>
         )}
