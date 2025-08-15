@@ -3,7 +3,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { JobRole } from '@/types/career';
 import { useCareer } from '@/contexts/CareerContext';
-import { Plus, Target } from 'lucide-react';
+import { Plus, Target, GitCompare, Heart } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface SimilarJobsProps {
   baseJob: JobRole;
@@ -11,7 +12,7 @@ interface SimilarJobsProps {
 }
 
 export const SimilarJobs = ({ baseJob, onClose }: SimilarJobsProps) => {
-  const { addToCompare, addToGoals } = useCareer();
+  const { addToCompare, addToGoals, removeFromCompare, removeFromGoals, compareList, goalsList } = useCareer();
 
   // Generate similar jobs based on the base job
   const getSimilarJobs = (job: JobRole): JobRole[] => {
@@ -87,22 +88,39 @@ export const SimilarJobs = ({ baseJob, onClose }: SimilarJobsProps) => {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => addToCompare(job)}
-                  >
-                    <Plus className="h-4 w-4 mr-1" />
-                    Compare
-                  </Button>
-                  <Button
-                    variant="default"
-                    size="sm"
-                    onClick={() => addToGoals(job)}
-                  >
-                    <Target className="h-4 w-4 mr-1" />
-                    Add Goal
-                  </Button>
+                  {(() => {
+                    const isInCompareList = compareList.some(compareJob => compareJob.id === job.id);
+                    const isInGoalsList = goalsList.some(goalJob => goalJob.id === job.id);
+                    
+                    return (
+                      <>
+                        <Button
+                          variant={isInCompareList ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => isInCompareList ? removeFromCompare(job.id) : addToCompare(job)}
+                          className={cn(
+                            "flex items-center gap-2 transition-all duration-200",
+                            isInCompareList && "bg-primary text-primary-foreground hover:bg-primary/90"
+                          )}
+                        >
+                          <GitCompare className="h-4 w-4" />
+                          {isInCompareList ? "Remove" : "Compare"}
+                        </Button>
+                        <Button
+                          variant={isInGoalsList ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => isInGoalsList ? removeFromGoals(job.id) : addToGoals(job)}
+                          className={cn(
+                            "flex items-center gap-2 transition-all duration-200",
+                            isInGoalsList && "bg-primary text-primary-foreground hover:bg-primary/90"
+                          )}
+                        >
+                          <Heart className={cn("h-4 w-4", isInGoalsList && "fill-current")} />
+                          {isInGoalsList ? "Remove" : "Add Goal"}
+                        </Button>
+                      </>
+                    );
+                  })()}
                 </div>
               </div>
             </CardHeader>
