@@ -85,7 +85,7 @@ export const ProfileStep = () => {
         timeframe,
         preferences,
       });
-      setCurrentStep(2);
+      setCurrentStep(3);
     }
   };
 
@@ -235,7 +235,7 @@ export const ProfileStep = () => {
         </Card>
 
         <div className="flex justify-between pt-6">
-          <Button variant="outline" onClick={() => setCurrentStep(0)}>
+          <Button variant="outline" onClick={() => setCurrentStep(1)}>
             Back
           </Button>
           <Button 

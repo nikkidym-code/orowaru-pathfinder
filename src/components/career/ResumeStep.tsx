@@ -55,7 +55,7 @@ export const ResumeStep = () => {
         ...userProfile,
         resumeData: parsedData
       });
-      setCurrentStep(3);
+      setCurrentStep(4);
     }
   };
 
@@ -251,7 +251,7 @@ export const ResumeStep = () => {
         )}
 
         <div className="flex justify-between pt-6">
-          <Button variant="outline" onClick={() => setCurrentStep(1)}>
+          <Button variant="outline" onClick={() => setCurrentStep(2)}>
             Back
           </Button>
           <Button 

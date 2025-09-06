@@ -316,10 +316,10 @@ export const TeOrowaruReport = () => {
       </div>
 
       <div className="flex justify-between pt-6">
-        <Button variant="outline" onClick={() => setCurrentStep(3)}>
+        <Button variant="outline" onClick={() => setCurrentStep(4)}>
           Back to Assessment
         </Button>
-        <Button onClick={() => setCurrentStep(5)}>
+        <Button onClick={() => setCurrentStep(6)}>
           Generate Action Plan
         </Button>
       </div>

@@ -12,6 +12,8 @@ export interface UserProfile {
   interests: string[];
   timeframe: string;
   preferences?: string;
+  coreValues?: { id: string; name: string; category: string }[];
+  valuesExplanation?: string;
   resumeData?: ResumeData;
   teOrowaruProfile?: TeOrowaruProfile;
 }

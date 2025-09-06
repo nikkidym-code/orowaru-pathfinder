@@ -59,7 +59,7 @@ export const AssessmentStep = () => {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       // All questions completed, move to Te Orowaru evaluation
-      setCurrentStep(4);
+      setCurrentStep(5);
     }
   };
 
@@ -106,7 +106,7 @@ export const AssessmentStep = () => {
           <div className="flex justify-between pt-4">
             <Button 
               variant="outline" 
-              onClick={currentQuestion === 0 ? () => setCurrentStep(2) : handlePrevious}
+              onClick={currentQuestion === 0 ? () => setCurrentStep(3) : handlePrevious}
             >
               {currentQuestion === 0 ? 'Back to Resume' : 'Previous Question'}
             </Button>

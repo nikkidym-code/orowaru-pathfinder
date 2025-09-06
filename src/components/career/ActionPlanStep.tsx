@@ -358,10 +358,10 @@ export const ActionPlanStep = () => {
       </Card>
 
       <div className="flex justify-between pt-6">
-        <Button variant="outline" onClick={() => setCurrentStep(4)}>
+        <Button variant="outline" onClick={() => setCurrentStep(5)}>
           Back to Assessment
         </Button>
-        <Button onClick={() => setCurrentStep(6)}>
+        <Button onClick={() => setCurrentStep(7)}>
           View Dashboard
         </Button>
       </div>
