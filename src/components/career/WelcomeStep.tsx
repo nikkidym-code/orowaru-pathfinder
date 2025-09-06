@@ -59,7 +59,7 @@ export const WelcomeStep = () => {
       }} />
         <div className="relative max-w-6xl mx-auto px-6 py-20">
           <div className="text-center">
-            <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Your Vue</h1>
+            <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">YourVue</h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">Take control of your career and forge your own Vue. Assess your future readiness with the Vue Scoring Assessment, receive personalized development plans that grow with you, and join a people-first community.</p>
             
             <Card className="max-w-md mx-auto p-6 shadow-lg border-0 bg-card/80 backdrop-blur-sm">
