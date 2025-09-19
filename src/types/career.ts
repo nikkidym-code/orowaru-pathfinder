@@ -56,17 +56,32 @@ export interface TeOrowaruProfile {
 
 export interface ActionPlan {
   id: string;
-  duration: number; // weeks
-  weeklyTasks: WeeklyTask[];
-  expectedUplift: { factorId: string; expectedIncrease: number }[];
-  riskMitigation: string[];
+  preferences: ActionPlanPrefs;
+  tasks: Task[];
+  dependencies: TaskDependency[];
+  currentCareerFit: number;
+  expectedCareerFit: number;
+  nextPriorityTask?: string;
+  syncStatus: {
+    calendar: 'connected' | 'partial' | 'disconnected';
+    email: 'connected' | 'partial' | 'disconnected';
+    lastSync?: Date;
+  };
 }
 
-export interface WeeklyTask {
-  week: number;
-  tasks: Task[];
-  measurementCriteria: string[];
-  resources: string[];
+export interface ActionPlanPrefs {
+  weeklyHours: number;
+  timeSlots: string[];
+  timeline: '3' | '6' | '12';
+  learningStyle: 'online' | 'hands-on' | 'hybrid';
+  calendarAuth: boolean;
+  emailNotifications: boolean;
+  email?: string;
+}
+
+export interface TaskDependency {
+  id: string;
+  dependsOn: string[];
 }
 
 export interface Task {
@@ -74,9 +89,21 @@ export interface Task {
   title: string;
   description: string;
   estimatedHours: number;
-  priority: 'urgent' | 'important' | 'continuous';
+  category: 'foundation' | 'quick-wins' | 'strategic';
+  priority: 'high' | 'medium' | 'low';
+  status: 'not-started' | 'in-progress' | 'completed' | 'skipped';
+  dueDate?: Date;
+  dependencies: string[];
+  resources: TaskResource[];
+  careerFitImpact: number;
   targetFactors: string[];
-  completed: boolean;
+}
+
+export interface TaskResource {
+  type: 'template' | 'guide' | 'tool' | 'course' | 'community';
+  title: string;
+  url?: string;
+  description: string;
 }
 
 export interface JobRole {

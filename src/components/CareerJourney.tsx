@@ -6,6 +6,7 @@ import { ProfileStep } from './career/ProfileStep';
 import { ResumeStep } from './career/ResumeStep';
 import { AssessmentStep } from './career/AssessmentStep';
 import { TeOrowaruReport } from './career/TeOrowaruReport';
+import { ActionPlanPreferencesStep } from './career/ActionPlanPreferencesStep';
 import { ActionPlanStep } from './career/ActionPlanStep';
 import { Dashboard } from './career/Dashboard';
 
@@ -16,6 +17,7 @@ const stepTitles = [
   'Resume',
   'Assessment',
   'Report',
+  'Preferences',
   'Plan',
   'Dashboard'
 ];
@@ -38,8 +40,10 @@ export const CareerJourney = () => {
       case 5:
         return <TeOrowaruReport />;
       case 6:
-        return <ActionPlanStep />;
+        return <ActionPlanPreferencesStep />;
       case 7:
+        return <ActionPlanStep />;
+      case 8:
         return <Dashboard />;
       default:
         return <WelcomeStep />;
@@ -48,7 +52,7 @@ export const CareerJourney = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {currentStep > 0 && currentStep < 7 && (
+      {currentStep > 0 && currentStep < 8 && (
         <ProgressIndicator
           currentStep={currentStep}
           totalSteps={stepTitles.length}
