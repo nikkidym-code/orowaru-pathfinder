@@ -40,7 +40,7 @@ export const ActionPlanStep = () => {
         tasks: [],
         dependencies: [],
         currentCareerFit: 23,
-        expectedCareerFit: 33,
+        expectedCareerFit: 48,
         syncStatus: {
           calendar: 'disconnected',
           email: 'disconnected'
@@ -167,8 +167,8 @@ export const ActionPlanStep = () => {
         { id: 'q2', dependsOn: ['f3'] },
         { id: 's1', dependsOn: ['f2', 'f3'] }
       ],
-      currentCareerFit: teOrowaruProfile.matchPercentage,
-      expectedCareerFit: Math.min(teOrowaruProfile.matchPercentage + 25, 100),
+      currentCareerFit: Math.round(teOrowaruProfile.matchPercentage),
+      expectedCareerFit: Math.round(Math.min(teOrowaruProfile.matchPercentage + 25, 100)),
       nextPriorityTask: 'f1',
       syncStatus: {
         calendar: 'disconnected',
@@ -270,22 +270,27 @@ export const ActionPlanStep = () => {
                 <div className="p-2 bg-success/10 rounded-lg group-hover:bg-success/20 transition-colors">
                   <CheckCircle className="w-6 h-6 text-success" />
                 </div>
-                <div>
-                  <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Career Fit Progress</span>
-                  <div className="flex items-center space-x-3">
-                    <span className="text-xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                      {plan.currentCareerFit}% → {plan.expectedCareerFit}%
-                    </span>
-                    <Badge variant="secondary" className="bg-success/10 text-success border-success/20 animate-fade-in">
-                      +{plan.expectedCareerFit - plan.currentCareerFit}% boost expected
-                    </Badge>
+                  <div>
+                    <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Career Fit Progress</span>
+                    <div className="flex items-center space-x-3">
+                      <span className="text-xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                        {Math.round(plan.currentCareerFit)}% → {Math.round(plan.expectedCareerFit)}%
+                      </span>
+                      <Badge variant="secondary" className="bg-success/10 text-success border-success/20 animate-fade-in">
+                        +{Math.round(plan.expectedCareerFit - plan.currentCareerFit)}% boost expected
+                      </Badge>
+                    </div>
                   </div>
-                </div>
               </div>
             </div>
             
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
-              <Button variant="outline" size="sm" className="hover-scale group bg-background/50 backdrop-blur-sm">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="hover-scale group bg-background/50 backdrop-blur-sm"
+                onClick={() => console.log('Opening notification settings')}
+              >
                 <Bell className="w-4 h-4 mr-2 group-hover:animate-pulse" />
                 Notification Settings
               </Button>
@@ -295,22 +300,42 @@ export const ActionPlanStep = () => {
                 <div className="flex items-center space-x-2">
                   <Badge 
                     variant={plan.syncStatus.calendar === 'connected' ? 'default' : 'secondary'}
-                    className={`transition-all duration-300 ${
+                    className={`transition-all duration-300 cursor-pointer ${
                       plan.syncStatus.calendar === 'connected' 
                         ? 'bg-success/10 text-success border-success/30 shadow-success/20 shadow-sm' 
-                        : 'bg-warning/10 text-warning border-warning/30'
+                        : 'bg-warning/10 text-warning border-warning/30 hover:bg-warning/20'
                     }`}
+                    onClick={() => {
+                      if (plan.syncStatus.calendar !== 'connected') {
+                        const updatedPlan = {
+                          ...plan,
+                          syncStatus: { ...plan.syncStatus, calendar: 'connected' as const, lastSync: new Date() }
+                        };
+                        setPlan(updatedPlan);
+                        setActionPlan(updatedPlan);
+                      }
+                    }}
                   >
                     <Calendar className="w-3 h-3 mr-1" />
                     Calendar {plan.syncStatus.calendar === 'connected' ? '✅' : '⚠️'}
                   </Badge>
                   <Badge 
                     variant={plan.syncStatus.email === 'connected' ? 'default' : 'secondary'}
-                    className={`transition-all duration-300 ${
+                    className={`transition-all duration-300 cursor-pointer ${
                       plan.syncStatus.email === 'connected' 
                         ? 'bg-success/10 text-success border-success/30 shadow-success/20 shadow-sm' 
-                        : 'bg-warning/10 text-warning border-warning/30'
+                        : 'bg-warning/10 text-warning border-warning/30 hover:bg-warning/20'
                     }`}
+                    onClick={() => {
+                      if (plan.syncStatus.email !== 'connected') {
+                        const updatedPlan = {
+                          ...plan,
+                          syncStatus: { ...plan.syncStatus, email: 'connected' as const }
+                        };
+                        setPlan(updatedPlan);
+                        setActionPlan(updatedPlan);
+                      }
+                    }}
                   >
                     📧 Email {plan.syncStatus.email === 'connected' ? '✅' : '⚠️'}
                   </Badge>
