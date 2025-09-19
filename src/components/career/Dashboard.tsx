@@ -42,7 +42,7 @@ export const Dashboard = () => {
   }
 
   const completedTasks = 0; // In a real app, this would be tracked
-  const totalTasks = actionPlan.weeklyTasks.reduce((sum, week) => sum + week.tasks.length, 0);
+  const totalTasks = actionPlan.tasks.length;
   const progressPercentage = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
 
   const urgentFactors = teOrowaruProfile.factors.filter(f => f.gap > 15);
@@ -113,8 +113,8 @@ export const Dashboard = () => {
               <Calendar className="w-6 h-6 text-blue-600" />
             </div>
             <div>
-              <div className="text-2xl font-bold">{actionPlan.duration}</div>
-              <div className="text-sm text-muted-foreground">Week Plan</div>
+              <div className="text-2xl font-bold">{actionPlan.preferences.timeline}</div>
+              <div className="text-sm text-muted-foreground">Month Plan</div>
             </div>
           </div>
         </Card>
@@ -180,9 +180,9 @@ export const Dashboard = () => {
               {/* Current Week Tasks */}
               <Card className="p-6">
                 <h3 className="text-xl font-bold mb-4">This Week's Focus</h3>
-                {actionPlan.weeklyTasks.length > 0 ? (
+                {actionPlan.tasks.length > 0 ? (
                   <div className="space-y-3">
-                    {actionPlan.weeklyTasks[0].tasks.map((task) => (
+                    {actionPlan.tasks.slice(0, 3).map((task) => (
                       <div key={task.id} className="flex items-center space-x-3 p-3 border rounded-lg">
                         <div className="w-4 h-4 rounded border-2" />
                         <div className="flex-1">
