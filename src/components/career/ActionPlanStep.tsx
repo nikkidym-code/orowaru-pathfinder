@@ -242,131 +242,175 @@ export const ActionPlanStep = () => {
   const nextWeekPreview = getNextWeekPreview();
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6 space-y-8">
       {/* Top Navigation Area - Career Progress Dashboard */}
-      <Card className="p-6 mb-6 bg-gradient-to-r from-primary/5 to-primary/10">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
-          <div className="space-y-2">
-            <div className="flex items-center space-x-2">
-              <Target className="w-5 h-5 text-primary" />
-              <span className="font-medium">Next Priority:</span>
-              <span className="font-semibold">{todaysFocus?.title || 'No active tasks'}</span>
-              {todaysFocus?.dueDate && (
-                <Badge variant="outline" className="text-xs">
-                  Due: {todaysFocus.dueDate.toLocaleDateString()}
-                </Badge>
-              )}
+      <div className="relative overflow-hidden">
+        <Card className="p-8 bg-gradient-to-br from-primary/10 via-primary/5 to-background border-primary/20 shadow-xl animate-fade-in">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-50" />
+          <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-6 lg:space-y-0">
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3 group">
+                <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                  <Target className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Next Priority</span>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xl font-bold">{todaysFocus?.title || 'No active tasks'}</span>
+                    {todaysFocus?.dueDate && (
+                      <Badge variant="outline" className="animate-pulse border-primary/30 text-primary">
+                        Due: {todaysFocus.dueDate.toLocaleDateString()}
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-3 group">
+                <div className="p-2 bg-success/10 rounded-lg group-hover:bg-success/20 transition-colors">
+                  <CheckCircle className="w-6 h-6 text-success" />
+                </div>
+                <div>
+                  <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Career Fit Progress</span>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                      {plan.currentCareerFit}% → {plan.expectedCareerFit}%
+                    </span>
+                    <Badge variant="secondary" className="bg-success/10 text-success border-success/20 animate-fade-in">
+                      +{plan.expectedCareerFit - plan.currentCareerFit}% boost expected
+                    </Badge>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <CheckCircle className="w-5 h-5 text-primary" />
-              <span className="font-medium">Career Fit Progress:</span>
-              <span className="font-semibold">
-                {plan.currentCareerFit}% → {plan.expectedCareerFit}%
-              </span>
-              <Badge variant="secondary" className="text-xs">
-                Expected after completing current tasks
-              </Badge>
+            
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
+              <Button variant="outline" size="sm" className="hover-scale group bg-background/50 backdrop-blur-sm">
+                <Bell className="w-4 h-4 mr-2 group-hover:animate-pulse" />
+                Notification Settings
+              </Button>
+              
+              <div className="flex flex-col space-y-2">
+                <span className="text-sm font-medium text-muted-foreground">Sync Status</span>
+                <div className="flex items-center space-x-2">
+                  <Badge 
+                    variant={plan.syncStatus.calendar === 'connected' ? 'default' : 'secondary'}
+                    className={`transition-all duration-300 ${
+                      plan.syncStatus.calendar === 'connected' 
+                        ? 'bg-success/10 text-success border-success/30 shadow-success/20 shadow-sm' 
+                        : 'bg-warning/10 text-warning border-warning/30'
+                    }`}
+                  >
+                    <Calendar className="w-3 h-3 mr-1" />
+                    Calendar {plan.syncStatus.calendar === 'connected' ? '✅' : '⚠️'}
+                  </Badge>
+                  <Badge 
+                    variant={plan.syncStatus.email === 'connected' ? 'default' : 'secondary'}
+                    className={`transition-all duration-300 ${
+                      plan.syncStatus.email === 'connected' 
+                        ? 'bg-success/10 text-success border-success/30 shadow-success/20 shadow-sm' 
+                        : 'bg-warning/10 text-warning border-warning/30'
+                    }`}
+                  >
+                    📧 Email {plan.syncStatus.email === 'connected' ? '✅' : '⚠️'}
+                  </Badge>
+                </div>
+              </div>
             </div>
           </div>
-          
-          <div className="flex items-center space-x-4">
-            <Button variant="outline" size="sm">
-              <Bell className="w-4 h-4 mr-2" />
-              Notification Settings
-            </Button>
-            <div className="flex items-center space-x-2 text-sm">
-              <span>Sync Status:</span>
-              <Badge variant={plan.syncStatus.calendar === 'connected' ? 'default' : 'secondary'}>
-                📅 Calendar {plan.syncStatus.calendar === 'connected' ? '✅' : '⚠️'}
-              </Badge>
-              <Badge variant={plan.syncStatus.email === 'connected' ? 'default' : 'secondary'}>
-                📧 Email {plan.syncStatus.email === 'connected' ? '✅' : '⚠️'}
-              </Badge>
-            </div>
-          </div>
-        </div>
-      </Card>
+        </Card>
+      </div>
 
-      <div className="space-y-8">
+      <div className="space-y-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
         {/* Intelligent Planning Module */}
-        <IntelligentPlanningModule
-          tasks={plan.tasks}
-          onTaskUpdate={handleTaskUpdate}
-          onApplyDefaults={() => {
-            // Apply smart defaults logic
-            console.log('Applying smart defaults...');
-          }}
-        />
+        <div className="animate-scale-in" style={{ animationDelay: '0.3s' }}>
+          <IntelligentPlanningModule
+            tasks={plan.tasks}
+            onTaskUpdate={handleTaskUpdate}
+            onApplyDefaults={() => {
+              // Apply smart defaults logic
+              console.log('Applying smart defaults...');
+            }}
+          />
+        </div>
 
         {/* Execution Support Module */}
-        <ExecutionSupportModule
-          tasks={plan.tasks}
-          todaysFocus={todaysFocus}
-          weekProgress={weekProgress}
-          nextWeekPreview={nextWeekPreview}
-          onStartTask={(taskId) => handleTaskUpdate(taskId, { status: 'in-progress' })}
-          onBreakDown={(taskId) => setStrugglingTask(plan.tasks.find(t => t.id === taskId))}
-          onGetHelp={(taskId) => setStrugglingTask(plan.tasks.find(t => t.id === taskId))}
-          onPostpone={(taskId) => {
-            const task = plan.tasks.find(t => t.id === taskId);
-            if (task?.dueDate) {
-              const newDueDate = new Date(task.dueDate.getTime() + 7 * 24 * 60 * 60 * 1000);
-              handleTaskUpdate(taskId, { dueDate: newDueDate });
-            }
-          }}
-        />
+        <div className="animate-scale-in" style={{ animationDelay: '0.4s' }}>
+          <ExecutionSupportModule
+            tasks={plan.tasks}
+            todaysFocus={todaysFocus}
+            weekProgress={weekProgress}
+            nextWeekPreview={nextWeekPreview}
+            onStartTask={(taskId) => handleTaskUpdate(taskId, { status: 'in-progress' })}
+            onBreakDown={(taskId) => setStrugglingTask(plan.tasks.find(t => t.id === taskId))}
+            onGetHelp={(taskId) => setStrugglingTask(plan.tasks.find(t => t.id === taskId))}
+            onPostpone={(taskId) => {
+              const task = plan.tasks.find(t => t.id === taskId);
+              if (task?.dueDate) {
+                const newDueDate = new Date(task.dueDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+                handleTaskUpdate(taskId, { dueDate: newDueDate });
+              }
+            }}
+          />
+        </div>
 
         {/* Smart Adjustment Module (appears when there's a struggling task) */}
         {strugglingTask && (
-          <SmartAdjustmentModule
-            strugglingTask={strugglingTask}
-            onBreakdownTask={(taskId) => {
-              // Break down task into smaller parts
-              console.log(`Breaking down task: ${taskId}`);
-              setStrugglingTask(undefined);
-            }}
-            onGetSupport={(taskId, supportType) => {
-              console.log(`Getting ${supportType} support for task: ${taskId}`);
-              setStrugglingTask(undefined);
-            }}
-            onStrategicPivot={(taskId, pivotType) => {
-              console.log(`Strategic pivot ${pivotType} for task: ${taskId}`);
-              setStrugglingTask(undefined);
-            }}
-          />
+          <div className="animate-scale-in">
+            <SmartAdjustmentModule
+              strugglingTask={strugglingTask}
+              onBreakdownTask={(taskId) => {
+                // Break down task into smaller parts
+                console.log(`Breaking down task: ${taskId}`);
+                setStrugglingTask(undefined);
+              }}
+              onGetSupport={(taskId, supportType) => {
+                console.log(`Getting ${supportType} support for task: ${taskId}`);
+                setStrugglingTask(undefined);
+              }}
+              onStrategicPivot={(taskId, pivotType) => {
+                console.log(`Strategic pivot ${pivotType} for task: ${taskId}`);
+                setStrugglingTask(undefined);
+              }}
+            />
+          </div>
         )}
 
         {/* Platform Integration Module */}
-        <PlatformIntegrationModule
-          syncStatus={plan.syncStatus}
-          onConnectCalendar={() => {
-            const updatedPlan = {
-              ...plan,
-              syncStatus: { ...plan.syncStatus, calendar: 'connected' as const, lastSync: new Date() }
-            };
-            setPlan(updatedPlan);
-            setActionPlan(updatedPlan);
-          }}
-          onFixEmailPermissions={() => {
-            const updatedPlan = {
-              ...plan,
-              syncStatus: { ...plan.syncStatus, email: 'connected' as const }
-            };
-            setPlan(updatedPlan);
-            setActionPlan(updatedPlan);
-          }}
-          onTestEmail={() => console.log('Sending test email...')}
-          onDownloadBackup={() => console.log('Downloading backup...')}
-          onExportPDF={() => console.log('Exporting PDF...')}
-        />
+        <div className="animate-scale-in" style={{ animationDelay: '0.5s' }}>
+          <PlatformIntegrationModule
+            syncStatus={plan.syncStatus}
+            onConnectCalendar={() => {
+              const updatedPlan = {
+                ...plan,
+                syncStatus: { ...plan.syncStatus, calendar: 'connected' as const, lastSync: new Date() }
+              };
+              setPlan(updatedPlan);
+              setActionPlan(updatedPlan);
+            }}
+            onFixEmailPermissions={() => {
+              const updatedPlan = {
+                ...plan,
+                syncStatus: { ...plan.syncStatus, email: 'connected' as const }
+              };
+              setPlan(updatedPlan);
+              setActionPlan(updatedPlan);
+            }}
+            onTestEmail={() => console.log('Sending test email...')}
+            onDownloadBackup={() => console.log('Downloading backup...')}
+            onExportPDF={() => console.log('Exporting PDF...')}
+          />
+        </div>
       </div>
 
-      <div className="flex justify-between pt-6">
-        <Button variant="outline" onClick={() => setCurrentStep(6)}>
-          Back to Preferences
+      <div className="flex justify-between pt-8 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+        <Button variant="outline" onClick={() => setCurrentStep(6)} className="hover-scale group">
+          <span className="group-hover:animate-pulse">←</span>
+          <span className="ml-2">Back to Preferences</span>
         </Button>
-        <Button onClick={() => setCurrentStep(8)}>
-          View Dashboard
+        <Button onClick={() => setCurrentStep(8)} className="hover-scale bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300">
+          <span className="mr-2">View Dashboard</span>
+          <span className="group-hover:animate-pulse">→</span>
         </Button>
       </div>
     </div>
