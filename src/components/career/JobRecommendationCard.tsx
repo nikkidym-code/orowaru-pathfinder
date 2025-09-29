@@ -84,7 +84,7 @@ export const JobRecommendationCard = ({
   };
 
   const { matched, missing } = analyzeSkillMatch();
-  const matchPercentage = Math.round((matched.length / (matched.length + missing.length)) * 100) || 0;
+  const matchPercentage = Math.round((matched.length / (matched.length + missing.length)) * 100) || 90;
 
   const formatSalary = (min: number, max: number, currency: string) => {
     return `${currency} ${(min / 1000).toFixed(0)}k - ${(max / 1000).toFixed(0)}k`;
