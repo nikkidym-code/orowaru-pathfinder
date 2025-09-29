@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { FileUploader } from '@/components/ui/file-uploader';
-import { Slider } from '@/components/ui/slider';
-import { ArrowLeft, ArrowRight, Upload, Plus, X, Brain, Award, TrendingUp } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Upload, Award, Brain, Plus, X } from 'lucide-react';
 import { useCareer } from '@/contexts/CareerContext';
+import { ResumeData } from '@/types/career';
 
 const scenarioQuestions = [
   {
@@ -66,20 +65,11 @@ const scenarioQuestions = [
   }
 ];
 
-const skillSuggestions = [
-  "JavaScript", "Python", "React", "Node.js", "SQL", "Project Management", "Data Analysis",
-  "Machine Learning", "UI/UX Design", "Digital Marketing", "Leadership", "Communication",
-  "Problem Solving", "Team Collaboration", "Strategic Planning", "Financial Analysis",
-  "Content Writing", "Public Speaking", "Negotiation", "Customer Service", "Sales",
-  "Research", "Technical Writing", "Quality Assurance", "DevOps", "Cloud Computing"
-];
-
 export const AptitudesStep = () => {
-  const [phase, setPhase] = useState<'upload' | 'skills' | 'assessment'>('upload');
+  const [phase, setPhase] = useState<'upload' | 'review' | 'assessment'>('upload');
   const [resumeText, setResumeText] = useState('');
   const [uploadedFile, setUploadedFile] = useState<{url: string; path: string; name: string} | null>(null);
-  const [skills, setSkills] = useState<Array<{name: string, proficiency: number}>>([]);
-  const [newSkill, setNewSkill] = useState('');
+  const [parsedData, setParsedData] = useState<ResumeData | null>(null);
   const [scenarioAnswers, setScenarioAnswers] = useState<Record<number, number>>({});
   const [isProcessing, setIsProcessing] = useState(false);
   
@@ -90,35 +80,139 @@ export const AptitudesStep = () => {
     // Simulate parsing
     await new Promise(resolve => setTimeout(resolve, 2000));
     
-    // Mock extracted skills
-    const extractedSkills = [
-      { name: "JavaScript", proficiency: 4 },
-      { name: "React", proficiency: 4 },
-      { name: "Project Management", proficiency: 3 },
-      { name: "Team Leadership", proficiency: 3 },
-      { name: "Data Analysis", proficiency: 2 }
-    ];
+    // Mock parsed data based on the image structure
+    const mockParsedData: ResumeData = {
+      education: [
+        "Bachelor of Computer Science - University of Auckland (2020)",
+        "Certified ScrumMaster - Scrum Alliance (2022)"
+      ],
+      workExperience: [
+        "Junior Software Developer - TechCorp (2020-2022)",
+        "Software Engineer - StartupXYZ (2022-Present)"
+      ],
+      hardSkills: ["JavaScript", "React", "Node.js", "Python", "SQL", "Git", "AWS"],
+      softSkills: ["Problem Solving", "Team Collaboration", "Communication", "Leadership"],
+      projects: [
+        "E-commerce Platform - Led development of React-based shopping cart",
+        "Mobile App - Built React Native app with 50k+ downloads"
+      ],
+      awards: [
+        "Employee of the Month - StartupXYZ (March 2023)",
+        "Best Final Year Project - University of Auckland (2020)"
+      ]
+    };
     
-    setSkills(extractedSkills);
-    setPhase('skills');
+    setParsedData(mockParsedData);
+    setPhase('review');
     setIsProcessing(false);
   };
 
-  const addSkill = () => {
-    if (newSkill.trim() && !skills.find(s => s.name.toLowerCase() === newSkill.toLowerCase())) {
-      setSkills([...skills, { name: newSkill.trim(), proficiency: 3 }]);
-      setNewSkill('');
-    }
+  const updateEducation = (index: number, value: string) => {
+    if (!parsedData) return;
+    const newEducation = [...parsedData.education];
+    newEducation[index] = value;
+    setParsedData({ ...parsedData, education: newEducation });
   };
 
-  const removeSkill = (index: number) => {
-    setSkills(skills.filter((_, i) => i !== index));
+  const addEducation = () => {
+    if (!parsedData) return;
+    setParsedData({ ...parsedData, education: [...parsedData.education, ""] });
   };
 
-  const updateSkillProficiency = (index: number, proficiency: number) => {
-    const updatedSkills = [...skills];
-    updatedSkills[index].proficiency = proficiency;
-    setSkills(updatedSkills);
+  const removeEducation = (index: number) => {
+    if (!parsedData) return;
+    const newEducation = parsedData.education.filter((_, i) => i !== index);
+    setParsedData({ ...parsedData, education: newEducation });
+  };
+
+  const updateWorkExperience = (index: number, value: string) => {
+    if (!parsedData) return;
+    const newWorkExperience = [...parsedData.workExperience];
+    newWorkExperience[index] = value;
+    setParsedData({ ...parsedData, workExperience: newWorkExperience });
+  };
+
+  const addWorkExperience = () => {
+    if (!parsedData) return;
+    setParsedData({ ...parsedData, workExperience: [...parsedData.workExperience, ""] });
+  };
+
+  const removeWorkExperience = (index: number) => {
+    if (!parsedData) return;
+    const newWorkExperience = parsedData.workExperience.filter((_, i) => i !== index);
+    setParsedData({ ...parsedData, workExperience: newWorkExperience });
+  };
+
+  const updateProjects = (index: number, value: string) => {
+    if (!parsedData) return;
+    const newProjects = [...parsedData.projects];
+    newProjects[index] = value;
+    setParsedData({ ...parsedData, projects: newProjects });
+  };
+
+  const addProject = () => {
+    if (!parsedData) return;
+    setParsedData({ ...parsedData, projects: [...parsedData.projects, ""] });
+  };
+
+  const removeProject = (index: number) => {
+    if (!parsedData) return;
+    const newProjects = parsedData.projects.filter((_, i) => i !== index);
+    setParsedData({ ...parsedData, projects: newProjects });
+  };
+
+  const updateAwards = (index: number, value: string) => {
+    if (!parsedData) return;
+    const newAwards = [...parsedData.awards];
+    newAwards[index] = value;
+    setParsedData({ ...parsedData, awards: newAwards });
+  };
+
+  const addAward = () => {
+    if (!parsedData) return;
+    setParsedData({ ...parsedData, awards: [...parsedData.awards, ""] });
+  };
+
+  const removeAward = (index: number) => {
+    if (!parsedData) return;
+    const newAwards = parsedData.awards.filter((_, i) => i !== index);
+    setParsedData({ ...parsedData, awards: newAwards });
+  };
+
+  const updateHardSkills = (index: number, value: string) => {
+    if (!parsedData) return;
+    const newHardSkills = [...parsedData.hardSkills];
+    newHardSkills[index] = value;
+    setParsedData({ ...parsedData, hardSkills: newHardSkills });
+  };
+
+  const addHardSkill = () => {
+    if (!parsedData) return;
+    setParsedData({ ...parsedData, hardSkills: [...parsedData.hardSkills, ""] });
+  };
+
+  const removeHardSkill = (index: number) => {
+    if (!parsedData) return;
+    const newHardSkills = parsedData.hardSkills.filter((_, i) => i !== index);
+    setParsedData({ ...parsedData, hardSkills: newHardSkills });
+  };
+
+  const updateSoftSkills = (index: number, value: string) => {
+    if (!parsedData) return;
+    const newSoftSkills = [...parsedData.softSkills];
+    newSoftSkills[index] = value;
+    setParsedData({ ...parsedData, softSkills: newSoftSkills });
+  };
+
+  const addSoftSkill = () => {
+    if (!parsedData) return;
+    setParsedData({ ...parsedData, softSkills: [...parsedData.softSkills, ""] });
+  };
+
+  const removeSoftSkill = (index: number) => {
+    if (!parsedData) return;
+    const newSoftSkills = parsedData.softSkills.filter((_, i) => i !== index);
+    setParsedData({ ...parsedData, softSkills: newSoftSkills });
   };
 
   const handleScenarioAnswer = (questionId: number, optionIndex: number) => {
@@ -128,16 +222,16 @@ export const AptitudesStep = () => {
   const handleNext = () => {
     if (phase === 'upload' && (resumeText || uploadedFile)) {
       parseResume();
-    } else if (phase === 'skills') {
+    } else if (phase === 'review') {
       setPhase('assessment');
     } else if (phase === 'assessment') {
       // Save aptitudes profile  
       const aptitudesProfile = {
-        skills,
+        parsedData,
         scenarioAnswers,
         resumeData: {
           text: resumeText,
-          fileName: uploadedFile?.name
+          fileName: uploadedFile?.name || ''
         }
       };
       
@@ -145,16 +239,90 @@ export const AptitudesStep = () => {
         ...userProfile!,
         aptitudesProfile
       });
-      setCurrentStep(3);
+      setCurrentStep(4);
     }
   };
 
   const canProceed = () => {
     if (phase === 'upload') return resumeText.trim() || uploadedFile;
-    if (phase === 'skills') return skills.length >= 3;
+    if (phase === 'review') return parsedData;
     if (phase === 'assessment') return Object.keys(scenarioAnswers).length === scenarioQuestions.length;
     return false;
   };
+
+  const renderEditableSection = (
+    title: string,
+    items: string[],
+    updateFn: (index: number, value: string) => void,
+    addFn: () => void,
+    removeFn: (index: number) => void
+  ) => (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold text-foreground">{title}</h3>
+        <Button onClick={addFn} size="sm" variant="outline">
+          <Plus className="w-4 h-4" />
+        </Button>
+      </div>
+      <div className="space-y-2">
+        {items.map((item, index) => (
+          <div key={index} className="flex items-start gap-2">
+            <Textarea
+              value={item}
+              onChange={(e) => updateFn(index, e.target.value)}
+              className="resize-none min-h-[60px]"
+              placeholder={`Enter ${title.toLowerCase()} details...`}
+            />
+            <Button
+              onClick={() => removeFn(index)}
+              size="sm"
+              variant="ghost"
+              className="mt-2"
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderSkillsSection = (
+    title: string,
+    skills: string[],
+    updateFn: (index: number, value: string) => void,
+    addFn: () => void,
+    removeFn: (index: number) => void
+  ) => (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold text-foreground">{title}</h3>
+        <Button onClick={addFn} size="sm" variant="outline">
+          <Plus className="w-4 h-4" />
+        </Button>
+      </div>
+      <div className="space-y-2">
+        {skills.map((skill, index) => (
+          <div key={index} className="flex items-center gap-2">
+            <input
+              type="text"
+              value={skill}
+              onChange={(e) => updateFn(index, e.target.value)}
+              className="flex-1 px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20"
+              placeholder={`Enter ${title.toLowerCase().slice(0, -1)}...`}
+            />
+            <Button
+              onClick={() => removeFn(index)}
+              size="sm"
+              variant="ghost"
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-accent/20 to-background p-6">
@@ -206,71 +374,63 @@ export const AptitudesStep = () => {
           </Card>
         )}
 
-        {phase === 'skills' && (
+        {phase === 'review' && parsedData && (
           <Card className="p-8 shadow-lg border-0 bg-card/80 backdrop-blur-sm">
             <div className="flex items-center gap-3 mb-6">
               <Award className="w-6 h-6 text-primary" />
-              <h2 className="text-2xl font-semibold">Review & Edit Your Skills</h2>
+              <h2 className="text-2xl font-semibold">Review & Edit Parsed Information</h2>
             </div>
             
-            <div className="space-y-6">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder="Add a skill..."
-                  value={newSkill}
-                  onChange={(e) => setNewSkill(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && addSkill()}
-                  className="flex-1 px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20"
-                />
-                <Button onClick={addSkill} size="sm">
-                  <Plus className="w-4 h-4" />
-                </Button>
+            <div className="space-y-8">
+              {renderEditableSection(
+                "Education",
+                parsedData.education,
+                updateEducation,
+                addEducation,
+                removeEducation
+              )}
+
+              {renderEditableSection(
+                "Work Experience",
+                parsedData.workExperience,
+                updateWorkExperience,
+                addWorkExperience,
+                removeWorkExperience
+              )}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {renderSkillsSection(
+                  "Hard Skills",
+                  parsedData.hardSkills,
+                  updateHardSkills,
+                  addHardSkill,
+                  removeHardSkill
+                )}
+
+                {renderSkillsSection(
+                  "Soft Skills",
+                  parsedData.softSkills,
+                  updateSoftSkills,
+                  addSoftSkill,
+                  removeSoftSkill
+                )}
               </div>
-              
-              <div className="flex flex-wrap gap-2 mb-4">
-                {skillSuggestions.map((skill) => (
-                  <Badge
-                    key={skill}
-                    variant="outline"
-                    className="cursor-pointer hover:bg-primary/10"
-                    onClick={() => setNewSkill(skill)}
-                  >
-                    {skill}
-                  </Badge>
-                ))}
-              </div>
-              
-              <div className="space-y-4">
-                {skills.map((skill, index) => (
-                  <div key={index} className="flex items-center gap-4 p-4 bg-accent/20 rounded-lg">
-                    <div className="flex-1">
-                      <span className="font-medium">{skill.name}</span>
-                    </div>
-                    <div className="flex-1 max-w-xs">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm text-muted-foreground w-16">Beginner</span>
-                        <Slider
-                          value={[skill.proficiency]}
-                          onValueChange={([value]) => updateSkillProficiency(index, value)}
-                          max={5}
-                          min={1}
-                          step={1}
-                          className="flex-1"
-                        />
-                        <span className="text-sm text-muted-foreground w-16">Expert</span>
-                      </div>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => removeSkill(index)}
-                    >
-                      <X className="w-4 h-4" />
-                    </Button>
-                  </div>
-                ))}
-              </div>
+
+              {renderEditableSection(
+                "Projects",
+                parsedData.projects,
+                updateProjects,
+                addProject,
+                removeProject
+              )}
+
+              {renderEditableSection(
+                "Awards & Achievements",
+                parsedData.awards,
+                updateAwards,
+                addAward,
+                removeAward
+              )}
             </div>
           </Card>
         )}

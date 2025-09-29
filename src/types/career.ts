@@ -17,7 +17,7 @@ export interface UserProfile {
   resumeData?: ResumeData;
   teOrowaruProfile?: TeOrowaruProfile;
   aptitudesProfile?: {
-    skills: Array<{name: string, proficiency: number}>;
+    parsedData: ResumeData | null;
     scenarioAnswers: Record<number, number>;
     resumeData: {
       text: string;
