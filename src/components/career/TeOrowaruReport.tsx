@@ -169,7 +169,7 @@ export const TeOrowaruReport = () => {
         </p>
       </div>
 
-      {/* Te Orowaru Scoring Section (Collapsed by Default) */}
+      {/* Te Orowaru Career Fit Assessment Section (Collapsed by Default) */}
       <div className="max-w-4xl mx-auto mb-6">
         <Card className="p-6">
         <Collapsible open={isScoringSectionOpen} onOpenChange={setIsScoringSectionOpen}>
@@ -178,13 +178,13 @@ export const TeOrowaruReport = () => {
               <div className="flex items-center space-x-4">
                 <BarChart3 className="w-6 h-6" />
                 <div className="text-left">
-                  <h3 className="text-xl font-bold">WorkVue Model Scoring</h3>
+                  <h3 className="text-xl font-bold">Te Orowaru Career Fit Assessment</h3>
                   <div className="flex items-center space-x-4 mt-1">
                     <Badge variant="secondary" className="text-sm">
-                      {Math.round(profile.matchPercentage)}% Match
+                      {Math.round(profile.matchPercentage)}% Overall Match
                     </Badge>
                     <Badge variant="outline" className="text-sm">
-                      {getUserTypeDisplay()}
+                      Target: 70%+ within 6 months
                     </Badge>
                   </div>
                 </div>
@@ -198,7 +198,7 @@ export const TeOrowaruReport = () => {
           </CollapsibleTrigger>
 
           <CollapsibleContent className="mt-6 space-y-6">
-            {/* Overall Match */}
+            {/* Overall Match Score */}
             <div className="text-center">
               <div className="relative w-32 h-32 mx-auto mb-4">
                 <div className="w-32 h-32 rounded-full border-8 border-muted flex items-center justify-center relative">
@@ -215,71 +215,128 @@ export const TeOrowaruReport = () => {
                   <span className="text-2xl font-bold">{Math.round(profile.matchPercentage)}%</span>
                 </div>
               </div>
+              <h4 className="text-lg font-bold mb-2">Overall Match Score</h4>
               <Badge variant={matchStatus.color as any} className="text-lg px-4 py-2">
                 {matchStatus.label}
               </Badge>
-              <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <div className="font-medium">Current Score</div>
-                  <div className="text-muted-foreground">{Math.round(profile.totalCurrentScore)}</div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Strength Areas */}
+              <div className="space-y-4">
+                <h4 className="text-lg font-bold flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-success" />
+                  Strength Areas
+                </h4>
+                <div className="space-y-3">
+                  <div className="p-3 border border-success/20 bg-success/5 rounded-lg">
+                    <div className="font-medium text-success">Problem-solving</div>
+                    <div className="text-sm text-muted-foreground">Strong analytical thinking and solution development</div>
+                  </div>
+                  <div className="p-3 border border-success/20 bg-success/5 rounded-lg">
+                    <div className="font-medium text-success">Planning & Organization</div>
+                    <div className="text-sm text-muted-foreground">Excellent project management and strategic thinking</div>
+                  </div>
+                  <div className="p-3 border border-success/20 bg-success/5 rounded-lg">
+                    <div className="font-medium text-success">Technical Skills</div>
+                    <div className="text-sm text-muted-foreground">Strong foundation in required technical competencies</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-medium">Target Score</div>
-                  <div className="text-muted-foreground">{Math.round(profile.totalTargetScore)}</div>
+              </div>
+
+              {/* Growth Areas */}
+              <div className="space-y-4">
+                <h4 className="text-lg font-bold flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5 text-warning" />
+                  Growth Areas
+                </h4>
+                <div className="space-y-3">
+                  <div className="p-3 border border-warning/20 bg-warning/5 rounded-lg">
+                    <div className="font-medium text-warning">Interpersonal Communication</div>
+                    <div className="text-sm text-muted-foreground">Needs development in team collaboration and presentation skills</div>
+                  </div>
+                  <div className="p-3 border border-warning/20 bg-warning/5 rounded-lg">
+                    <div className="font-medium text-warning">Industry Knowledge</div>
+                    <div className="text-sm text-muted-foreground">Requires deeper understanding of market trends and practices</div>
+                  </div>
+                  <div className="p-3 border border-warning/20 bg-warning/5 rounded-lg">
+                    <div className="font-medium text-warning">Leadership Experience</div>
+                    <div className="text-sm text-muted-foreground">Limited experience in leading teams and initiatives</div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Category Breakdown */}
-            <div>
-              <h4 className="text-lg font-bold mb-4">Category Breakdown</h4>
-              <div className="grid md:grid-cols-2 gap-6">
-                {Object.entries(profile.categoryScores).map(([category, scores]) => (
-                  <div key={category} className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="font-medium">{categoryNames[category as keyof typeof categoryNames]}</span>
-                      <span className="text-sm text-muted-foreground">
-                        {Math.round((scores.current / scores.target) * 100)}%
-                      </span>
+            {/* Improvement Suggestions */}
+            <div className="space-y-4">
+              <h4 className="text-lg font-bold flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-primary" />
+                Improvement Suggestions
+              </h4>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="p-4 border rounded-lg">
+                  <div className="font-medium mb-2">Communication Skills Development</div>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Join Toastmasters or similar speaking groups</li>
+                    <li>• Take online courses in presentation skills</li>
+                    <li>• Practice active listening techniques</li>
+                    <li>• Seek feedback from colleagues regularly</li>
+                  </ul>
+                </div>
+                <div className="p-4 border rounded-lg">
+                  <div className="font-medium mb-2">Industry Knowledge Enhancement</div>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Subscribe to industry publications</li>
+                    <li>• Attend conferences and networking events</li>
+                    <li>• Complete relevant certification programs</li>
+                    <li>• Connect with industry mentors</li>
+                  </ul>
+                </div>
+                <div className="p-4 border rounded-lg">
+                  <div className="font-medium mb-2">Leadership Experience Building</div>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Volunteer for cross-functional projects</li>
+                    <li>• Mentor junior team members</li>
+                    <li>• Take on team lead responsibilities</li>
+                    <li>• Complete leadership training programs</li>
+                  </ul>
+                </div>
+                <div className="p-4 border rounded-lg">
+                  <div className="font-medium mb-2">Goal Achievement Timeline</div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span>3 months:</span>
+                      <span className="text-muted-foreground">45-50% match</span>
                     </div>
-                    <Progress 
-                      value={(scores.current / scores.target) * 100} 
-                      className="w-full"
-                    />
-                    <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>Current: {Math.round(scores.current)}</span>
-                      <span>Target: {Math.round(scores.target)}</span>
+                    <div className="flex justify-between text-sm">
+                      <span>6 months:</span>
+                      <span className="text-primary font-medium">70%+ match target</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span>12 months:</span>
+                      <span className="text-muted-foreground">85%+ match</span>
                     </div>
                   </div>
-                ))}
+                </div>
               </div>
             </div>
 
-            {/* Factor Details */}
-            <div>
-              <h4 className="text-lg font-bold mb-4">Factor Analysis</h4>
-              <div className="space-y-3">
-                {profile.factors.map((factor) => (
-                  <div key={factor.id} className="flex items-center justify-between p-3 border rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      {getStatusIcon(factor.status)}
-                      <div>
-                        <div className="font-medium text-sm">{factor.name}</div>
-                        <div className="text-xs text-muted-foreground">
-                          Level {factor.currentLevel}/{factor.maxScore} → {factor.targetLevel}/{factor.maxScore}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-medium text-sm">
-                        Gap: {Math.round(factor.gap)}
-                      </div>
-                      <div className="text-xs text-muted-foreground capitalize">
-                        {factor.status.replace('_', ' ')}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            {/* Target Setting */}
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+              <h4 className="text-lg font-bold text-primary mb-2">Target Setting</h4>
+              <div className="text-sm space-y-2">
+                <div className="flex items-center justify-between">
+                  <span>Current Match Score:</span>
+                  <span className="font-medium">{Math.round(profile.matchPercentage)}%</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span>6-Month Target:</span>
+                  <span className="font-bold text-primary">70%+</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span>Improvement Needed:</span>
+                  <span className="font-medium">{Math.max(0, 70 - Math.round(profile.matchPercentage))}%</span>
+                </div>
               </div>
             </div>
           </CollapsibleContent>
