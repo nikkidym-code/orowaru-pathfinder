@@ -116,6 +116,7 @@ export const InterestsStep = () => {
       setRankedInterests([...selectedInterests]);
       setPhase('rank');
     } else {
+      console.log('Completing interests step, moving to Working Preferences');
       // Save interests profile
       const interestsProfile = {
         selectedInterests,
@@ -127,7 +128,7 @@ export const InterestsStep = () => {
         ...userProfile!,
         interestsProfile
       });
-      setCurrentStep(4);
+      setCurrentStep(5); // Go to Working Preferences step
     }
   };
 
