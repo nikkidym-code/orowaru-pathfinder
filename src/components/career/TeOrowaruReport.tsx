@@ -376,7 +376,7 @@ export const TeOrowaruReport = () => {
         <Button variant="outline" onClick={() => setCurrentStep(4)}>
           Back to Assessment
         </Button>
-        <Button onClick={() => setCurrentStep(6)}>
+        <Button onClick={() => setCurrentStep(7)}>
           Generate Action Plan
         </Button>
       </div>
