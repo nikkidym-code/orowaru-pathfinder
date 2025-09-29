@@ -26,30 +26,44 @@ const stepTitles = [
 
 export const CareerJourney = () => {
   const { currentStep } = useCareer();
+  
+  console.log('CareerJourney rendering, currentStep:', currentStep);
 
   const renderStep = () => {
+    console.log('renderStep called with currentStep:', currentStep);
     switch (currentStep) {
       case 0:
+        console.log('Rendering WelcomeStep');
         return <WelcomeStep />;
       case 1:
+        console.log('Rendering OrientationStep');
         return <OrientationStep />;
       case 2:
+        console.log('Rendering ValuesStep');
         return <ValuesStep />;
       case 3:
+        console.log('Rendering AptitudesStep');
         return <AptitudesStep />;
       case 4:
+        console.log('Rendering InterestsStep');
         return <InterestsStep />;
       case 5:
+        console.log('Rendering WorkingPreferencesStep');
         return <WorkingPreferencesStep />;
       case 6:
+        console.log('Rendering TeOrowaruReport');
         return <TeOrowaruReport />;
       case 7:
+        console.log('Rendering ActionPlanPreferencesStep');
         return <ActionPlanPreferencesStep />;
       case 8:
+        console.log('Rendering ActionPlanStep');
         return <ActionPlanStep />;
       case 9:
+        console.log('Rendering Dashboard');
         return <Dashboard />;
       default:
+        console.log('Rendering default WelcomeStep');
         return <WelcomeStep />;
     }
   };
