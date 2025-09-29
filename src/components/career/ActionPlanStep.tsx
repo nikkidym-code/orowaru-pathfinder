@@ -433,7 +433,7 @@ export const ActionPlanStep = () => {
           <span className="group-hover:animate-pulse">←</span>
           <span className="ml-2">Back to Preferences</span>
         </Button>
-        <Button onClick={() => setCurrentStep(8)} className="hover-scale bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300">
+        <Button onClick={() => setCurrentStep(9)} className="hover-scale bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300">
           <span className="mr-2">View Dashboard</span>
           <span className="group-hover:animate-pulse">→</span>
         </Button>
