@@ -70,8 +70,13 @@ export const WelcomeStep = () => {
                   </Label>
                   <Input id="email" type="email" placeholder="Enter your email to get started" value={email} onChange={e => setEmail(e.target.value)} className="mt-1" />
                 </div>
-                <Button onClick={handleStart} disabled={!email} className="w-full bg-primary hover:bg-primary/90" size="lg">
-                  Start Your Career Journey
+                <Button 
+                  onClick={handleStart} 
+                  disabled={!email.trim()} 
+                  className="w-full bg-primary hover:bg-primary/90" 
+                  size="lg"
+                >
+                  Continue to Profile
                 </Button>
               </div>
             </Card>
