@@ -38,7 +38,7 @@ export const ActionPlanPreferencesStep = () => {
 
   const handleSubmit = () => {
     if (preferences.weeklyHours && preferences.timeSlots.length > 0) {
-      setCurrentStep(7); // Navigate to main action plan
+      setCurrentStep(8); // Navigate to main action plan
     }
   };
 
