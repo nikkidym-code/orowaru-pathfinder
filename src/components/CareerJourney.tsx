@@ -2,20 +2,20 @@ import { useCareer } from '@/contexts/CareerContext';
 import { ProgressIndicator } from './career/ProgressIndicator';
 import { WelcomeStep } from './career/WelcomeStep';
 import { ValuesStep } from './career/ValuesStep';
-import { ProfileStep } from './career/ProfileStep';
-import { ResumeStep } from './career/ResumeStep';
-import { AssessmentStep } from './career/AssessmentStep';
+import { AptitudesStep } from './career/AptitudesStep';
+import { InterestsStep } from './career/InterestsStep';
+import { WorkingPreferencesStep } from './career/WorkingPreferencesStep';
 import { TeOrowaruReport } from './career/TeOrowaruReport';
 import { ActionPlanPreferencesStep } from './career/ActionPlanPreferencesStep';
 import { ActionPlanStep } from './career/ActionPlanStep';
 import { Dashboard } from './career/Dashboard';
 
 const stepTitles = [
-  'Welcome',
-  'Values',
-  'Profile',
-  'Resume',
-  'Assessment',
+  'Entry & Orientation',
+  'Values Assessment', 
+  'Aptitudes Assessment',
+  'Interests Exploration',
+  'Working Preferences',
   'Report',
   'Preferences',
   'Plan',
@@ -32,11 +32,11 @@ export const CareerJourney = () => {
       case 1:
         return <ValuesStep />;
       case 2:
-        return <ProfileStep />;
+        return <AptitudesStep />;
       case 3:
-        return <ResumeStep />;
+        return <InterestsStep />;
       case 4:
-        return <AssessmentStep />;
+        return <WorkingPreferencesStep />;
       case 5:
         return <TeOrowaruReport />;
       case 6:
@@ -52,11 +52,11 @@ export const CareerJourney = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {currentStep > 0 && currentStep < 8 && (
+      {currentStep > 0 && currentStep < 5 && (
         <ProgressIndicator
           currentStep={currentStep}
-          totalSteps={stepTitles.length}
-          stepTitles={stepTitles}
+          totalSteps={5}
+          stepTitles={stepTitles.slice(0, 5)}
         />
       )}
       {renderStep()}

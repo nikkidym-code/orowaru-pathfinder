@@ -16,6 +16,24 @@ export interface UserProfile {
   valuesExplanation?: string;
   resumeData?: ResumeData;
   teOrowaruProfile?: TeOrowaruProfile;
+  aptitudesProfile?: {
+    skills: Array<{name: string, proficiency: number}>;
+    scenarioAnswers: Record<number, number>;
+    resumeData: {
+      text: string;
+      fileName?: string;
+    };
+  };
+  interestsProfile?: {
+    selectedInterests: string[];
+    rankedInterests: string[];
+    interestThemes: string[];
+  };
+  workPreferencesProfile?: {
+    preferences: Record<string, any>;
+    workStyleLabel: string;
+    completedAt: string;
+  };
 }
 
 export interface ResumeData {
