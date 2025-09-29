@@ -1,6 +1,7 @@
 import { useCareer } from '@/contexts/CareerContext';
 import { ProgressIndicator } from './career/ProgressIndicator';
 import { WelcomeStep } from './career/WelcomeStep';
+import { OrientationStep } from './career/OrientationStep';
 import { ValuesStep } from './career/ValuesStep';
 import { AptitudesStep } from './career/AptitudesStep';
 import { InterestsStep } from './career/InterestsStep';
@@ -11,7 +12,8 @@ import { ActionPlanStep } from './career/ActionPlanStep';
 import { Dashboard } from './career/Dashboard';
 
 const stepTitles = [
-  'Entry & Orientation',
+  'Welcome',
+  'Orientation',
   'Values Assessment', 
   'Aptitudes Assessment',
   'Interests Exploration',
@@ -30,20 +32,22 @@ export const CareerJourney = () => {
       case 0:
         return <WelcomeStep />;
       case 1:
-        return <ValuesStep />;
+        return <OrientationStep />;
       case 2:
-        return <AptitudesStep />;
+        return <ValuesStep />;
       case 3:
-        return <InterestsStep />;
+        return <AptitudesStep />;
       case 4:
-        return <WorkingPreferencesStep />;
+        return <InterestsStep />;
       case 5:
-        return <TeOrowaruReport />;
+        return <WorkingPreferencesStep />;
       case 6:
-        return <ActionPlanPreferencesStep />;
+        return <TeOrowaruReport />;
       case 7:
-        return <ActionPlanStep />;
+        return <ActionPlanPreferencesStep />;
       case 8:
+        return <ActionPlanStep />;
+      case 9:
         return <Dashboard />;
       default:
         return <WelcomeStep />;
@@ -52,11 +56,11 @@ export const CareerJourney = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {currentStep > 0 && currentStep < 5 && (
+      {currentStep > 1 && currentStep < 6 && (
         <ProgressIndicator
-          currentStep={currentStep}
+          currentStep={currentStep - 1}
           totalSteps={5}
-          stepTitles={stepTitles.slice(0, 5)}
+          stepTitles={stepTitles.slice(1, 6)}
         />
       )}
       {renderStep()}
