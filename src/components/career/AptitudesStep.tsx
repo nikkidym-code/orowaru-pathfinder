@@ -77,7 +77,7 @@ const skillSuggestions = [
 export const AptitudesStep = () => {
   const [phase, setPhase] = useState<'upload' | 'skills' | 'assessment'>('upload');
   const [resumeText, setResumeText] = useState('');
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [uploadedFile, setUploadedFile] = useState<{url: string; path: string; name: string} | null>(null);
   const [skills, setSkills] = useState<Array<{name: string, proficiency: number}>>([]);
   const [newSkill, setNewSkill] = useState('');
   const [scenarioAnswers, setScenarioAnswers] = useState<Record<number, number>>({});
@@ -177,9 +177,12 @@ export const AptitudesStep = () => {
             
             <div className="space-y-6">
               <FileUploader
-                onFileSelect={(files) => setUploadedFile(files[0])}
-                maxFiles={1}
-                accept=".pdf,.doc,.docx"
+                onFileUploaded={(fileData) => setUploadedFile(fileData)}
+                accept={{
+                  'application/pdf': ['.pdf'],
+                  'application/msword': ['.doc'],
+                  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
+                }}
                 className="border-2 border-dashed border-primary/20 rounded-lg p-8"
               />
               
