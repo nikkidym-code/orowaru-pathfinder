@@ -15,7 +15,7 @@ export const WelcomeStep = () => {
   const handleStart = () => {
     console.log('handleStart called, email:', email);
     if (email.trim()) {
-      console.log('Email is valid, setting user profile and moving to step 1');
+      console.log('Email is valid, setting user profile and moving to Aptitudes Assessment');
       const newProfile = {
         id: Date.now().toString(),
         email: email.trim(),
@@ -27,9 +27,9 @@ export const WelcomeStep = () => {
       };
       console.log('New profile:', newProfile);
       setUserProfile(newProfile);
-      console.log('About to set current step to 1');
-      setCurrentStep(1);
-      console.log('Current step set to 1');
+      console.log('About to set current step to 3 (Aptitudes Assessment)');
+      setCurrentStep(3);
+      console.log('Current step set to 3');
     } else {
       console.log('Email is empty or invalid');
     }
