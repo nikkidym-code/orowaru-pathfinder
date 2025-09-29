@@ -118,6 +118,7 @@ export const WorkingPreferencesStep = () => {
   };
 
   const handleNext = () => {
+    console.log('Completing working preferences step, moving to Te Orowaru Report');
     const workPreferencesProfile = {
       preferences,
       workStyleLabel: getWorkStyleLabel(),
@@ -128,7 +129,7 @@ export const WorkingPreferencesStep = () => {
       ...userProfile!,
       workPreferencesProfile
     });
-    setCurrentStep(5);
+    setCurrentStep(6); // Go to Te Orowaru Report step
   };
 
   const canProceed = () => {
