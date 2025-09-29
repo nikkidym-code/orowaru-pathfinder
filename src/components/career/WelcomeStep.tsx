@@ -13,17 +13,25 @@ export const WelcomeStep = () => {
     setUserProfile
   } = useCareer();
   const handleStart = () => {
-    if (email) {
-      setUserProfile({
+    console.log('handleStart called, email:', email);
+    if (email.trim()) {
+      console.log('Email is valid, setting user profile and moving to step 1');
+      const newProfile = {
         id: Date.now().toString(),
-        email,
-        careerStage: 'starter',
+        email: email.trim(),
+        careerStage: 'starter' as const,
         hasGoal: false,
         objectives: [],
         interests: [],
         timeframe: ''
-      });
+      };
+      console.log('New profile:', newProfile);
+      setUserProfile(newProfile);
+      console.log('About to set current step to 1');
       setCurrentStep(1);
+      console.log('Current step set to 1');
+    } else {
+      console.log('Email is empty or invalid');
     }
   };
   const features = [{
