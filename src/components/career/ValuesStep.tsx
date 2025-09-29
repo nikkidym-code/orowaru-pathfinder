@@ -51,12 +51,13 @@ export const ValuesStep = () => {
     } else if (currentPhase === 'refine') {
       setCurrentPhase('explain');
     } else {
+      console.log('Completing values step, moving to Aptitudes Assessment');
       setUserProfile({
         ...userProfile,
         coreValues: finalValues,
         valuesExplanation: explanation
       });
-      setCurrentStep(2);
+      setCurrentStep(3); // Go to Aptitudes Assessment
     }
   };
 
