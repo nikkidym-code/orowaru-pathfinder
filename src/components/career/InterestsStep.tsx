@@ -128,7 +128,9 @@ export const InterestsStep = () => {
         ...userProfile!,
         interestsProfile
       });
+      console.log('About to set current step to 5 (WorkingPreferences)');
       setCurrentStep(5); // Go to Working Preferences step
+      console.log('Current step set to 5');
     }
   };
 

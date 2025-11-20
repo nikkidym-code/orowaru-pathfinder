@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { UserProfile, TeOrowaruProfile, ActionPlan, JobRole } from '@/types/career';
 
 interface CareerContextType {
@@ -36,12 +36,37 @@ interface CareerProviderProps {
 }
 
 export const CareerProvider = ({ children }: CareerProviderProps) => {
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [teOrowaruProfile, setTeOrowaruProfile] = useState<TeOrowaruProfile | null>(null);
-  const [actionPlan, setActionPlan] = useState<ActionPlan | null>(null);
-  const [compareList, setCompareList] = useState<JobRole[]>([]);
-  const [goalsList, setGoalsList] = useState<JobRole[]>([]);
+  // Load initial state from sessionStorage to persist across page reloads
+  const loadPersistedState = () => {
+    try {
+      const saved = sessionStorage.getItem('careerJourneyState');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  };
+
+  const persisted = loadPersistedState();
+
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(persisted.userProfile || null);
+  const [currentStep, setCurrentStep] = useState(persisted.currentStep || 0);
+  const [teOrowaruProfile, setTeOrowaruProfile] = useState<TeOrowaruProfile | null>(persisted.teOrowaruProfile || null);
+  const [actionPlan, setActionPlan] = useState<ActionPlan | null>(persisted.actionPlan || null);
+  const [compareList, setCompareList] = useState<JobRole[]>(persisted.compareList || []);
+  const [goalsList, setGoalsList] = useState<JobRole[]>(persisted.goalsList || []);
+
+  // Persist state to sessionStorage whenever it changes
+  useEffect(() => {
+    const state = {
+      currentStep,
+      userProfile,
+      teOrowaruProfile,
+      actionPlan,
+      compareList,
+      goalsList
+    };
+    sessionStorage.setItem('careerJourneyState', JSON.stringify(state));
+  }, [currentStep, userProfile, teOrowaruProfile, actionPlan, compareList, goalsList]);
 
   const addToCompare = (job: JobRole) => {
     setCompareList(prev => {
@@ -72,6 +97,7 @@ export const CareerProvider = ({ children }: CareerProviderProps) => {
     setActionPlan(null);
     setCompareList([]);
     setGoalsList([]);
+    sessionStorage.removeItem('careerJourneyState');
   };
 
   return (
