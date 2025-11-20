@@ -31,6 +31,13 @@ export const CareerJourney = () => {
 
   const renderStep = () => {
     console.log('renderStep called with currentStep:', currentStep);
+    
+    // Debug: log all step transitions
+    if (currentStep < 0 || currentStep > 9) {
+      console.error('Invalid currentStep:', currentStep);
+      return <WelcomeStep />;
+    }
+    
     switch (currentStep) {
       case 0:
         console.log('Rendering WelcomeStep');
@@ -63,7 +70,7 @@ export const CareerJourney = () => {
         console.log('Rendering Dashboard');
         return <Dashboard />;
       default:
-        console.log('Rendering default WelcomeStep');
+        console.log('Default case hit - rendering WelcomeStep');
         return <WelcomeStep />;
     }
   };
